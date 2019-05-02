@@ -6,7 +6,10 @@ Link to the Report: https://docs.google.com/document/d/1mjcLzm4THLj7-jp01uVueJyi
 # JavaFX 11.02
 Download Link: https://gluonhq.com/products/javafx/
 
-Bit of a paint to setup, so here is the steps:
+Bit of a pain to setup, so here is the steps:
+
+Windows:
+1) Extract JavaFX zip to a permanent location.
 
 In IntelliJ:
 
