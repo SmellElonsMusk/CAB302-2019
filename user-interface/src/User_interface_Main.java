@@ -18,6 +18,10 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
+/**
+ * TODO
+ * Create the UI responsive to the size of the window
+ */
 public class User_interface_Main extends Application {
 
     public static void main(String[] args) {
