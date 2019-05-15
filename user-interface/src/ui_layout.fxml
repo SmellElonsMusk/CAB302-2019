@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="807.0" prefWidth="1148.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <left>
       <VBox prefHeight="656.0" prefWidth="211.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER" />
@@ -25,7 +24,7 @@
    <top>
       <VBox prefHeight="54.0" prefWidth="1148.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
+            <MenuBar style="-fx-background-color: white;">
               <menus>
                 <Menu mnemonicParsing="false" text="Name">
                   <items>
@@ -42,13 +41,9 @@
                         <MenuItem mnemonicParsing="false" text="Open" />
                     <MenuItem mnemonicParsing="false" text="Save" />
                         <MenuItem mnemonicParsing="false" text="Save As" />
+                        <MenuItem mnemonicParsing="false" text="About" />
                   </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="About">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                    </items>
-                  </Menu>
               </menus>
             </MenuBar>
          </children>
