@@ -35,7 +35,10 @@ public class User_interface_Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ui_layout.fxml"));
         primaryStage.setTitle("Hello World" );
-        primaryStage.setScene(new Scene(root,1024,768));
+        Scene scene = new Scene(root,1024,768);
+        scene.getStylesheets().add("stylesheet.css");
+        primaryStage.setScene(scene);
+
         primaryStage.show();
     }
 

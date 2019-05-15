@@ -1,0 +1,64 @@
+
+/** Adds Icons to menu items**/
+.iconNew  > .label {
+    -fx-graphic: url(icons/file/new32.png);
+}
+
+.iconOpen  > .label {
+    -fx-graphic: url(icons/file/open32.png);
+}
+.iconSave  > .label {
+    -fx-graphic: url(icons/file/save32.png);
+}
+
+.iconSaveAs  > .label {
+    -fx-graphic: url(icons/file/saveAs32_v2.png);
+}
+
+.iconAbout > .label {
+    -fx-graphic: url(icons/file/about32.png);
+}
+
+#buttonToolLine {
+    -fx-background-image: url(icons/tools/line32.png);
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+/** Add icons to toolbar **/
+
+#buttonToolPlot {
+    -fx-background-image: url(icons/tools/Sketch32.png);
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+#buttonToolRectangle {
+    -fx-background-image: url(icons/tools/rectangle32.png);
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+#buttonToolEllipse {
+    -fx-background-image: url(icons/tools/Ellipse32.png);
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+#buttonToolPolygon {
+    -fx-background-image: url(icons/tools/polygon32.png);
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+#buttonToolFill {
+    -fx-background-image: url(icons/tools/line32.png);
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.button {
+    -fx-background-color: #C0C0C0;
+}
+
+
