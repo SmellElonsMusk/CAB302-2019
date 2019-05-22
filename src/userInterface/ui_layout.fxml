@@ -14,7 +14,8 @@
    <center>
       <VBox prefHeight="627.0" prefWidth="986.0" BorderPane.alignment="CENTER">
          <children>
-            <Canvas height="744.0" width="1082.0" />
+            <Canvas fx:id="canvas" height="744.0" onMouseClicked="#canvasMouseClick" onMouseDragged="#canvasMouseDrag" onScrollFinished="#canvasMouseScrollStop"
+                    onScrollStarted="#canvasMouseScrollStart" onZoom="#canvasZoom" onZoomFinished="#canvasZoomStopped" onZoomStarted="#canvasZoomStarted" width="1082.0" />
          </children>
       </VBox>
    </center>
@@ -25,10 +26,10 @@
               <menus>
                 <Menu id="MenuBarFIle" mnemonicParsing="false" text="File">
                   <items>
-                        <MenuItem id ="FileNew" mnemonicParsing="false" onAction="#clickFileNew" styleClass="iconNew" text="New" />
+                        <MenuItem id="FileNew" mnemonicParsing="false" onAction="#clickFileNew" styleClass="iconNew" text="New" />
                         <MenuItem id="FileOpen" mnemonicParsing="false" onAction="#clickFileOpen" styleClass="iconOpen" text="Open" />
                     <MenuItem id="FileSave" mnemonicParsing="false" onAction="#clickSave" styleClass="iconSave" text="Save" />
-                        <MenuItem id="FileSaveAs" mnemonicParsing="false"  onAction="#clickSaveAs" styleClass="iconSaveAs" text="Save As" />
+                        <MenuItem id="FileSaveAs" mnemonicParsing="false" onAction="#clickSaveAs" styleClass="iconSaveAs" text="Save As" />
                         <MenuItem id="FileAbout" mnemonicParsing="false" onAction="#clickAbout" styleClass="iconAbout" text="About" />
                   </items>
                 </Menu>
