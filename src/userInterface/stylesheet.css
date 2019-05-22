@@ -57,6 +57,16 @@
     -fx-background-repeat: no-repeat;
 }
 
+#buttonToolBucket {
+    -fx-background-image: url(icons/tools/bucket.png);
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+
+
+
+
 .button {
     -fx-background-color: #C0C0C0;
 }
