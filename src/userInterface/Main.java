@@ -21,12 +21,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("ui_layout.fxml"));
-        primaryStage.setTitle("Vec Draw" );
-        Scene scene = new Scene(root,1300,800);
-        scene.getStylesheets().add("userInterface/stylesheet.css");
-        primaryStage.setScene(scene);
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("ui_layout.fxml"));
+            primaryStage.setTitle("Vec Draw" );
+            Scene scene = new Scene(root,1300,800);
+            scene.getStylesheets().add("userInterface/stylesheet.css");
+            primaryStage.setScene(scene);
 
-        primaryStage.show();
+            primaryStage.show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

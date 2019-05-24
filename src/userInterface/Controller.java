@@ -1,16 +1,18 @@
 package userInterface;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.File;
-import java.io.IOException;
+
+import java.io.*;
 
 import backend.*;
 
@@ -24,10 +26,36 @@ import javax.xml.catalog.Catalog;
  */
 public class Controller {
 
-    @FXML private Canvas canvas;
+    @FXML
+    private TextArea console; // Console on GUI display
+    private PrintStream ps;
+    private Canvas canvas;
     private GraphicsContext gc;
-    public int mouseX;
-    public int moouseY;
+
+    // Streams the text being sent from the console to the GUI console display
+    public class Console extends OutputStream {
+        private TextArea console;
+
+        public Console(TextArea console) {
+            this.console = console;
+        }
+
+        public void appendText(String valueOf) {
+            Platform.runLater(() -> console.appendText(valueOf));
+        }
+
+        public void write(int b) throws IOException {
+            appendText(String.valueOf((char)b));
+        }
+    }
+
+    // Initializes the console stream
+    public void initialize(){
+        ps = new PrintStream(new Console(console)) ;
+
+        System.setOut(ps); // sets the console output to gui display
+        System.setErr(ps); // Sets the error output to gui display
+    }
 
     /**
      *
