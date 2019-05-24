@@ -1,0 +1,89 @@
+/**
+
+This is the stylesheet for the GUI menuBar.
+
+Includes the File, Edit and Help Submenus
+
+Style of icons - lineal
+
+ */
+
+/** -----------------------  FILE -----------------------*/
+.FileNew  > .label {
+    -fx-graphic: url(icons/menuBar/new.png);
+}
+
+.FileOpen  > .label {
+    -fx-graphic: url(icons/menuBar/open.png);
+}
+
+.FileOpenRecent  > .label {
+    -fx-graphic: url(icons/menuBar/recent.png);
+}
+.FileSave  > .label {
+    -fx-graphic: url(icons/menuBar/save.png);
+}
+
+.FileSaveAs  > .label {
+    -fx-graphic: url(icons/menuBar/save.png);
+}
+
+.FileRevert > .label {
+    -fx-graphic: url(icons/menuBar/revert.png);
+}
+
+.FileClose > .label {
+    -fx-graphic: url(icons/menuBar/exit.png);
+}
+
+.FilePreferences > .label {
+    -fx-graphic: url(icons/menuBar/settings.png);
+}
+
+
+/** -----------------------  EDIT -----------------------*/
+
+.EditUndo  > .label {
+    -fx-graphic: url(icons/menuBar/undo.png);
+}
+
+.EditRedo  > .label {
+    -fx-graphic: url(icons/menuBar/redo.png);
+}
+
+.EditCut  > .label {
+    -fx-graphic: url(icons/menuBar/cut.png);
+}
+
+.EditCopy  > .label {
+    -fx-graphic: url(icons/menuBar/copy.png);
+}
+
+.EditPaste  > .label {
+    -fx-graphic: url(icons/menuBar/paste.png);
+}
+
+.EditDelete  > .label {
+    -fx-graphic: url(icons/menuBar/delete.png);
+}
+
+.EditSelectAll  > .label {
+    -fx-graphic: url(icons/menuBar/select.png);
+}
+
+.EditUnSelectAll  > .label {
+    -fx-graphic: url(icons/menuBar/error.png);
+}
+
+/** ----------------------- HELP -----------------------*/
+
+.HelpAbout > .label {
+    -fx-graphic: url(icons/menuBar/info.png);
+}
+
+.colourPicker > .label {
+    -fx-graphic: url(icons/main/circular.png);
+}
+
+
+

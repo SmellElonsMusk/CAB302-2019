@@ -6,9 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.ZoomEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -26,11 +23,14 @@ import javax.xml.catalog.Catalog;
  */
 public class Controller {
 
-    @FXML
-    private TextArea console; // Console on GUI display
-    private PrintStream ps;
-    private Canvas canvas;
-    private GraphicsContext gc;
+
+    @FXML private TextArea console; // Console on GUI display
+    @FXML private PrintStream ps; // Streams to console on GUI
+    @FXML private Canvas canvas;
+    @FXML private GraphicsContext gc;
+
+
+
 
     // Streams the text being sent from the console to the GUI console display
     public class Console extends OutputStream {
@@ -94,65 +94,11 @@ public class Controller {
     }
 
     /**
-     *
+     * Closes the program from File -> Close when clicked.
      * @param actionEvent
      */
-    @FXML
-    protected void clickSave(ActionEvent actionEvent) {
-        System.out.println("Clicked: Save");
-    }
-
-    /**
-     *
-     * @param actionEvent
-     */
-    @FXML
-    protected void clickSaveAs(ActionEvent actionEvent) {
-        System.out.println("Clicked: Save as");
-    }
-
-    /**
-     *
-     * @param actionEvent
-     */
-    @FXML
-    protected void clickAbout(ActionEvent actionEvent) {
-        System.out.println("Clicked: about");
-    }
-
-    @FXML
-    public void canvasMouseClick(MouseEvent mouseEvent) {
-        System.out.println("Mouse Clicked");
-
-    }
-
-    @FXML
-    public void canvasMouseDrag(MouseEvent mouseEvent) {
-        System.out.println("Mouse drag");
-    }
-
-    @FXML
-    public void canvasMouseScrollStart(ScrollEvent scrollEvent) {
-        System.out.println("Mouse Scroll Start");
-    }
-
-    @FXML
-    public void canvasMouseScrollStop(ScrollEvent scrollEvent) {
-        System.out.println("Mouse Scroll Stop");
-    }
-
-    @FXML
-    public void canvasZoom(ZoomEvent zoomEvent) {
-    }
-
-    @FXML
-    public void canvasZoomStopped(ZoomEvent zoomEvent) {
-        System.out.println("Mouse zoom stopped");
-    }
-
-    @FXML
-    public void canvasZoomStarted(ZoomEvent zoomEvent) {
-        System.out.println("Mouse zoom start");
+    public void clickFileClose(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }
 
