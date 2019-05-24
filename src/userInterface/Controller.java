@@ -10,16 +10,24 @@ import javafx.scene.input.ZoomEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.IOException;
 
 import backend.*;
 
+import javax.xml.catalog.Catalog;
+
 /**
+ *
+ * TODO: Fix Canvas Drawing
+ *
  * @Author: Waldo Fouche, Kevin Doung
  */
 public class Controller {
 
     @FXML private Canvas canvas;
     private GraphicsContext gc;
+    public int mouseX;
+    public int moouseY;
 
     /**
      *
@@ -33,9 +41,11 @@ public class Controller {
     /**
      * Event handler for click action on the File -> open menu item
      * @param actionEvent
+     *
+     * @Author
      */
     @FXML
-    protected void clickFileOpen(ActionEvent actionEvent) {
+    protected void clickFileOpen(ActionEvent actionEvent) throws IOException {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.jpg")
@@ -45,6 +55,14 @@ public class Controller {
         File file = chooser.showOpenDialog(new Stage());
         System.out.println("Clicked: Open");
 
+
+        // Open selected file:
+
+        try {
+            loadFromFile loadedFile = new loadFromFile("file");
+            loadedFile.toString(); // Converts text to string
+        }
+        catch(Exception e) {}
     }
 
     /**
