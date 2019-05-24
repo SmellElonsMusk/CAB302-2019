@@ -1,4 +1,4 @@
 package backend;
 
-public class undo {
+public class undo extends tool{
 }

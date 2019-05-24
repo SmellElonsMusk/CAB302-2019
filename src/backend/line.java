@@ -1,4 +1,4 @@
 package backend;
 
-public class line {
+public class line extends tool {
 }

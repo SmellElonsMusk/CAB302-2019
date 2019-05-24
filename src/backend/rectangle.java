@@ -1,4 +1,4 @@
 package backend;
 
-public class rectangle {
+public class rectangle extends tool{
 }

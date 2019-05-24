@@ -1,4 +1,4 @@
 package backend;
 
-public class ellipse {
+public class ellipse extends tool {
 }
