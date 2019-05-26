@@ -88,7 +88,7 @@ public class Controller {
             stage.setTitle("Vec Draw");
             stage.setScene(scene);
             stage.show();
-            
+
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
@@ -109,17 +109,38 @@ public class Controller {
                 new FileChooser.ExtensionFilter("VEC Files", "*.vec")
         );
 
-        File file = chooser.showOpenDialog(new Stage());
-        System.out.println("Clicked: Open");
+        // Show file Dialog
+        File file_path = chooser.showOpenDialog(new Stage());
 
+        // File directory address
+        System.out.println(file_path);
 
-        // Open selected file:
+        // Gets only filename
+        String filename = new File(file_path.toString()).getName();
+        System.out.println(filename);
 
+        // Reading file...
         try {
-            loadFromFile loadedFile = new loadFromFile("file");
-            loadedFile.toString(); // Converts text to string
+            FileReader fr = new FileReader(file_path);
+            BufferedReader br = new BufferedReader(fr);
+
+            String str;
+            while ((str = br.readLine()) != null) {
+                System.out.println(str + "\n");
+            }
+
+            br.close();
+        } catch (IOException e) {
+            System.out.println("File not found");
         }
-        catch(Exception e) {}
+
+
+        /*
+            If the user successfully finds a file, then a new window will open with the selected image
+            Otherwise if the user cancels or exits the dialog, do not open a new window
+         */
+
+
     }
 
     /**

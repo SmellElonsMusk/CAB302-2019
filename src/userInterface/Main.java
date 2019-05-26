@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage){
         try{
             Parent root = FXMLLoader.load(getClass().getResource("ui_layout.fxml"));
-            primaryStage.setTitle("Vec Draw");
+            primaryStage.setTitle("Vec Draw - untitled");
             Scene scene = new Scene(root,900,600);
             scene.getStylesheets().add("userInterface/stylesheet.css");
             scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
