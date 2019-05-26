@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import backend.*;
 
 import javax.xml.catalog.Catalog;
@@ -45,6 +44,7 @@ public class Controller {
     }
 
 
+
     // Streams the text being sent from the console to the GUI console display
     public class Console extends OutputStream {
         private TextArea console;
@@ -71,15 +71,18 @@ public class Controller {
     }
 
     /**
+     * @author Kevin Duong, n9934731
      * clickFileNew - Multi-image support. When creating new image, it loads a new image in a separate window
      * @param actionEvent
      */
     @FXML
     public void clickFileNew(ActionEvent actionEvent) {
         try {
+            // Launch new window
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("ui_layout.fxml"));
 
+            // Implement stylesheet
             Scene scene = new Scene(fxmlLoader.load(), 900, 600);
             scene.getStylesheets().add("userInterface/stylesheet.css");
             scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
@@ -97,6 +100,7 @@ public class Controller {
 
 
     /**
+     * @author Kevin Duong, n9934731
      * Event handler for click action on the File -> open menu item
      * @param actionEvent
      *
@@ -115,6 +119,7 @@ public class Controller {
             Otherwise if the user cancels or exits the dialog, do not open a new window
          */
 
+        // File directory address and opening dialog
         File file_path = chooser.showOpenDialog(null);
 
         if (file_path != null) {
@@ -123,9 +128,11 @@ public class Controller {
                 // Gets only filename
                 String filename = new File(file_path.toString()).getName();
 
+                // Launch new window
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("ui_layout.fxml"));
 
+                // Implement stylesheet
                 Scene scene = new Scene(fxmlLoader.load(), 900, 600);
                 scene.getStylesheets().add("userInterface/stylesheet.css");
                 scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
@@ -156,6 +163,47 @@ public class Controller {
             }
         }
     }
+
+    /**
+     * @author Kevin Duong, n9934731
+     * File is saved, by updating the image code to the .vec file.
+     * @param actionEvent
+     */
+    public void clickFileSave(ActionEvent actionEvent) throws IOException {
+
+        String fileContent = "Hello Learner !! Welcome to howtodoinjava.com.";
+
+        FileWriter fileWriter = new FileWriter("C:\\Users\\aznke_000\\OneDrive\\Engineering EN01\\samplefile2.txt");
+        fileWriter.write(fileContent);
+        fileWriter.close();
+    }
+
+    /**
+     * @author Kevin Duong, n9934731
+     * Image is saved as a new .vec file with a name and directory location. File contains image code from drawing.
+     *
+     * @param actionEvent
+     */
+    @FXML
+    public void clickFileSaveAs(ActionEvent actionEvent) throws IOException {
+
+        FileChooser chooser = new FileChooser();
+
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("VEC Files", "*.vec")
+        );
+
+        File save_path = chooser.showSaveDialog(null);
+
+        if (save_path != null) {
+            String fileContent = "Hello Learner !! Welcome to howtodoinjava.com.";
+
+            FileWriter fileWriter = new FileWriter(save_path);
+            fileWriter.write(fileContent);
+            fileWriter.close();
+        }
+    }
+
 
     /**
      * Closes the program from File -> Close when clicked.

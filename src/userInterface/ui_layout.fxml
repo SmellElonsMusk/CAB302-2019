@@ -27,8 +27,8 @@
                         <MenuItem id="FileOpen" mnemonicParsing="false" onAction="#clickFileOpen" styleClass="FileOpen" text="Open…" />
                         <Menu id="FileOpenRecent" mnemonicParsing="false" styleClass="FileOpenRecent" text="Open Recent" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem id="FileSave" mnemonicParsing="false" styleClass="FileSave" text="Save" />
-                        <MenuItem id="FileSaveAs" mnemonicParsing="false" styleClass="FileSaveAs" text="Save As…" />
+                        <MenuItem id="FileSave" mnemonicParsing="false" onAction="#clickFileSave" styleClass="FileSave" text="Save" />
+                        <MenuItem id="FileSaveAs" mnemonicParsing="false" onAction="#clickFileSaveAs" styleClass="FileSaveAs" text="Save As…" />
                         <MenuItem id="FileRevert" mnemonicParsing="false" styleClass="FileRevert" text="Revert" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem id="FilePreferences" mnemonicParsing="false" styleClass="FilePreferences" text="Preferences…" />
