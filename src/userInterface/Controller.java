@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -14,6 +15,7 @@ import java.io.*;
 import backend.*;
 
 import javax.xml.catalog.Catalog;
+
 
 /**
  *
@@ -28,8 +30,6 @@ public class Controller {
     @FXML private PrintStream ps; // Streams to console on GUI
     @FXML private Canvas canvas;
     @FXML private GraphicsContext gc;
-
-
 
 
     // Streams the text being sent from the console to the GUI console display

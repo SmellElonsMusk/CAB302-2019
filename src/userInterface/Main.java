@@ -1,6 +1,5 @@
 package userInterface;
 
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -11,14 +10,7 @@ import backend.*;
 
 import java.io.IOException;
 
-
 public class Main extends Application {
-
-    public static void main(String[] args) throws IOException {
-
-        launch(args);
-
-    }
 
     @Override
     public void start(Stage primaryStage){
