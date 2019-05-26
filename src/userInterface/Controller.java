@@ -3,6 +3,8 @@ package userInterface;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
@@ -11,6 +13,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import backend.*;
 
@@ -30,6 +34,15 @@ public class Controller {
     @FXML private PrintStream ps; // Streams to console on GUI
     @FXML private Canvas canvas;
     @FXML private GraphicsContext gc;
+
+    /**
+     * Line function tool - activates when toggled.
+     * @param mouseEvent
+     */
+
+    public void pressLineFunction(MouseEvent mouseEvent) {
+
+    }
 
 
     // Streams the text being sent from the console to the GUI console display
@@ -58,13 +71,30 @@ public class Controller {
     }
 
     /**
-     *
+     * clickFileNew - Multi-image support. When creating new image, it loads a new image in a separate window
      * @param actionEvent
      */
     @FXML
     public void clickFileNew(ActionEvent actionEvent) {
-        System.out.println("Clicked: New");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("ui_layout.fxml"));
+
+            Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+            scene.getStylesheets().add("userInterface/stylesheet.css");
+            scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
+
+            Stage stage = new Stage();
+            stage.setTitle("Vec Draw");
+            stage.setScene(scene);
+            stage.show();
+            
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
     }
+
 
     /**
      * Event handler for click action on the File -> open menu item
@@ -76,8 +106,7 @@ public class Controller {
     protected void clickFileOpen(ActionEvent actionEvent) throws IOException {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.jpg")
-                ,new FileChooser.ExtensionFilter("VEC Files", "*.vec")
+                new FileChooser.ExtensionFilter("VEC Files", "*.vec")
         );
 
         File file = chooser.showOpenDialog(new Stage());
