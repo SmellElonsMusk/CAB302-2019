@@ -16,6 +16,8 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.net.URL;
+
 import backend.*;
 
 import javax.xml.catalog.Catalog;
@@ -88,7 +90,7 @@ public class Controller {
             scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
 
             Stage stage = new Stage();
-            stage.setTitle("Vec Draw - untitled");
+            stage.setTitle("Vec Draw - Untitled");
             stage.setScene(scene);
             stage.show();
 
@@ -170,12 +172,7 @@ public class Controller {
      * @param actionEvent
      */
     public void clickFileSave(ActionEvent actionEvent) throws IOException {
-
-        String fileContent = "Hello Learner !! Welcome to howtodoinjava.com.";
-
-        FileWriter fileWriter = new FileWriter("C:\\Users\\aznke_000\\OneDrive\\Engineering EN01\\samplefile2.txt");
-        fileWriter.write(fileContent);
-        fileWriter.close();
+       //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
     }
 
     /**
@@ -197,6 +194,7 @@ public class Controller {
 
         if (save_path != null) {
 
+            // Information from text area
             String fileContent = console.getText();
 
             FileWriter fileWriter = new FileWriter(save_path);
