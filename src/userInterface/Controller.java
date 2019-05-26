@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import backend.*;
 
 import javax.xml.catalog.Catalog;
@@ -42,7 +43,6 @@ public class Controller {
     public void pressLineFunction(MouseEvent mouseEvent) {
 
     }
-
 
 
     // Streams the text being sent from the console to the GUI console display
@@ -154,7 +154,7 @@ public class Controller {
 
                 String str;
                 while ((str = br.readLine()) != null) {
-                    System.out.println(str + "\n");
+                    System.out.println(str);
                 }
 
                 br.close();
@@ -196,7 +196,8 @@ public class Controller {
         File save_path = chooser.showSaveDialog(null);
 
         if (save_path != null) {
-            String fileContent = "Hello Learner !! Welcome to howtodoinjava.com.";
+
+            String fileContent = console.getText();
 
             FileWriter fileWriter = new FileWriter(save_path);
             fileWriter.write(fileContent);
