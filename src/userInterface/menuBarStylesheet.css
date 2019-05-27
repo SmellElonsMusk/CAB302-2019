@@ -81,9 +81,5 @@ Style of icons - lineal
     -fx-graphic: url(icons/menuBar/info.png);
 }
 
-.colourPicker > .label {
-    -fx-graphic: url(icons/main/circular.png);
-}
-
 
 
