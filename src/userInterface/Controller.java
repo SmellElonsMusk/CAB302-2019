@@ -55,7 +55,7 @@ public class Controller {
     public void initialize(){
         ps = new PrintStream(new Console(console)) ;
         System.setOut(ps); // sets the console output to gui display
-        System.setErr(ps); // Sets the error output to gui display
+        System.setErr(ps); // Sets the error output to gui display 
 
         lineTool = canvas.getGraphicsContext2D();
 
