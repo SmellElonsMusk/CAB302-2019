@@ -43,9 +43,12 @@ public class Controller {
     Boolean lineToolSelected = false;
     GraphicsContext lineTool;
 
-
     /**
+     * Initliases the Print stream for the GUi console
      *
+     * Initliasises Drawing Canvas and the tools
+     *
+     * TODO: implement other tools,  create spererate classes
      *
      * @Author Waldo Fouche, n9950095
      */
@@ -57,6 +60,9 @@ public class Controller {
         lineTool = canvas.getGraphicsContext2D();
 
 
+        /**
+         * Mouse event for the canvas
+         */
         canvas.setOnMouseDragged( e -> {
             double size = 10.00;
             double x = e.getX() - size/2;
@@ -69,13 +75,25 @@ public class Controller {
         });
     }
 
+
+    /**
+     * Selects Line Tool
+     * @param actionEvent
+     * @author Waldo Fouche, n9950095;
+     */
     @FXML
     public void lineToolSelected(ActionEvent actionEvent) {
         lineToolSelected = true;
     }
 
 
-    // Streams the text being sent from the console to the GUI console display
+    //
+
+    /**
+     * Streams the text being sent from the console to the GUI console display
+     *
+     * @author Waldo Fouche, n9950095
+     **/
     public class Console extends OutputStream {
         private TextArea console;
 
