@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -34,16 +35,43 @@ public class Controller {
 
     @FXML private TextArea console; // Console on GUI display
     @FXML private PrintStream ps; // Streams to console on GUI
+    @FXML private ColorPicker colorpicker; // Colour wheel
     @FXML private Canvas canvas;
-    @FXML private GraphicsContext gc;
+
+
+    // Tool Declarations
+    Boolean lineToolSelected = false;
+    GraphicsContext lineTool;
+
 
     /**
-     * Line function tool - activates when toggled.
-     * @param mouseEvent
+     *
+     *
+     * @Author Waldo Fouche, n9950095
      */
+    public void initialize(){
+        ps = new PrintStream(new Console(console)) ;
+        System.setOut(ps); // sets the console output to gui display
+        System.setErr(ps); // Sets the error output to gui display
 
-    public void pressLineFunction(MouseEvent mouseEvent) {
+        lineTool = canvas.getGraphicsContext2D();
 
+
+        canvas.setOnMouseDragged( e -> {
+            double size = 10.00;
+            double x = e.getX() - size/2;
+            double y = e.getY() - size/2;
+
+            if (lineToolSelected) {
+                lineTool.setFill(colorpicker.getValue());
+                lineTool.fillRoundRect(x,y,size,size,size,size);
+            }
+        });
+    }
+
+    @FXML
+    public void lineToolSelected(ActionEvent actionEvent) {
+        lineToolSelected = true;
     }
 
 
@@ -64,13 +92,6 @@ public class Controller {
         }
     }
 
-    // Initializes the console stream
-    public void initialize(){
-        ps = new PrintStream(new Console(console)) ;
-
-        System.setOut(ps); // sets the console output to gui display
-        System.setErr(ps); // Sets the error output to gui display
-    }
 
     /**
      * @author Kevin Duong, n9934731
@@ -172,7 +193,7 @@ public class Controller {
      * @param actionEvent
      */
     public void clickFileSave(ActionEvent actionEvent) throws IOException {
-       //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
+        //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
     }
 
     /**
