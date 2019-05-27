@@ -1,19 +1,23 @@
 package userInterface;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,10 +42,11 @@ public class Controller {
     @FXML private ColorPicker colorpicker; // Colour wheel
     @FXML private Canvas canvas;
 
+    @FXML
+    ToggleButton lineButton;
+    @FXML
+    ToggleButton plotButton;
 
-    // Tool Declarations
-    Boolean lineToolSelected = false;
-    GraphicsContext lineTool;
 
     /**
      * Initliases the Print stream for the GUi console
@@ -55,39 +60,69 @@ public class Controller {
     public void initialize(){
         ps = new PrintStream(new Console(console)) ;
         System.setOut(ps); // sets the console output to gui display
-        System.setErr(ps); // Sets the error output to gui display 
-
-        lineTool = canvas.getGraphicsContext2D();
-
-
-        /**
-         * Mouse event for the canvas
-         */
-        canvas.setOnMouseDragged( e -> {
-            double size = 10.00;
-            double x = e.getX() - size/2;
-            double y = e.getY() - size/2;
-
-            if (lineToolSelected) {
-                lineTool.setFill(colorpicker.getValue());
-                lineTool.fillRoundRect(x,y,size,size,size,size);
-            }
-        });
+        System.setErr(ps); // Sets the error output to gui display
     }
 
+    @FXML
+    public void handleLineButton(ActionEvent ActionEvent) {
+
+        if (lineButton.isSelected()){
+            System.out.println("LINE ON");
+
+            canvas.setOnMouseDragged( e -> {
+                double size = 10.00;
+                double x = e.getX();
+                double y = e.getY();
+
+                canvas.getGraphicsContext2D().setFill(colorpicker.getValue());
+                canvas.getGraphicsContext2D().fillRoundRect(x,y,size,size,size,size);
+            });
+
+        } else {
+            System.out.println("LINE OFF");
+
+            canvas.setOnMouseDragged(null);
+        }
+    }
 
     /**
-     * Selects Line Tool
+     * @Author Kevin Duong
+     * Plot Button Function
      * @param actionEvent
-     * @author Waldo Fouche, n9950095;
      */
     @FXML
-    public void lineToolSelected(ActionEvent actionEvent) {
-        lineToolSelected = true;
+    public void handlePlotButton(ActionEvent actionEvent) {
+
+        if (plotButton.isSelected()){
+            System.out.println("PLOT ON");
+
+            // PEN update colour
+            colorpicker.setOnMouseClicked( e -> {
+
+                //TODO: Convert colour value to Web colour
+                System.out.println("PEN "+ colorpicker.getValue());
+
+            });
+
+            canvas.setOnMouseClicked( e -> {
+                double size = 5.00;
+                double x = e.getX();
+                double y = e.getY();
+
+                canvas.getGraphicsContext2D().setFill(colorpicker.getValue());
+                canvas.getGraphicsContext2D().fillRoundRect(x,y,size,size,size,size);
+
+                // PLOT Output
+                System.out.println("PLOT " + x + " " + y);
+            });
+
+        } else {
+            System.out.println("PLOT OFF");
+
+            canvas.setOnMouseClicked(null);
+        }
     }
 
-
-    //
 
     /**
      * Streams the text being sent from the console to the GUI console display

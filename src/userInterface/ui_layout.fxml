@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -13,6 +12,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -63,18 +63,14 @@
                     <children>
                         <AnchorPane prefHeight="499.0" prefWidth="76.0">
                             <children>
-                                <Button id="buttonToolLine" fx:id="lineTool" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#lineToolSelected" styleClass="buttonToolLine" text="       ">
-                                    <stylesheets>
-                                        <URL value="@menuBarStylesheet.css" />
-                                        <URL value="@stylesheet.css" />
-                                    </stylesheets></Button>
-                                <Button id="buttonToolPlot" layoutX="16.0" layoutY="48.0" mnemonicParsing="false" styleClass="buttonToolPlot" stylesheets="@stylesheet.css" text="       " />
-                                <Button id="buttonToolRectangle" layoutX="16.0" layoutY="81.0" mnemonicParsing="false" styleClass="buttonToolRectangle" stylesheets="@stylesheet.css" text="       " />
-                                <Button id="buttonToolPolygon" layoutX="16.0" layoutY="114.0" mnemonicParsing="false" styleClass="buttonToolPolygon" stylesheets="@stylesheet.css" text="       " />
-                                <Button id="buttonToolEllipse" layoutX="16.0" layoutY="149.0" mnemonicParsing="false" styleClass="buttonToolEllipse" stylesheets="@stylesheet.css" text="       " AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" />
+                        <ToggleButton id="buttonToolLine" fx:id="lineButton" layoutX="-6.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleLineButton" styleClass="buttonToolLine" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="460.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="14.0" />
+                        <ToggleButton id="buttonToolPlot" fx:id="plotButton" layoutX="-3.0" layoutY="332.0" mnemonicParsing="false" onAction="#handlePlotButton" styleClass="buttonToolPlot" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="426.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="48.0" />
+                        <ToggleButton id="buttonToolRectangle" mnemonicParsing="false" styleClass="buttonToolRectangle" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="393.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="81.0" />
+                        <ToggleButton id="buttonToolEllipse" mnemonicParsing="false" styleClass="buttonToolEllipse" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="360.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="114.0" />
+                        <ToggleButton id="buttonToolPolygon" mnemonicParsing="false" styleClass="buttonToolPolygon" stylesheets="@stylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="149.0" />
                                 <Separator layoutX="4.0" layoutY="191.0" prefHeight="0.0" prefWidth="68.0" />
-                                <Button id="buttonToolFill" layoutX="15.0" layoutY="201.0" mnemonicParsing="false" styleClass="buttonToolFill" stylesheets="@stylesheet.css" text="       " />
-                                <ColorPicker id="colourPicker" fx:id="colorpicker" accessibleRole="COMBO_BOX" layoutX="14.0" layoutY="239.0" prefHeight="25.0" prefWidth="40.0" styleClass="colourPicker" stylesheets="@menuBarStylesheet.css" />
+                                <Button id="buttonToolFill" layoutX="15.0" layoutY="201.0" mnemonicParsing="false" styleClass="buttonToolFill" stylesheets="@stylesheet.css" text="       " AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="201.0" />
+                                <ColorPicker id="colourPicker" fx:id="colorpicker" accessibleRole="COMBO_BOX" layoutX="14.0" layoutY="239.0" prefHeight="25.0" prefWidth="40.0" styleClass="colourPicker" stylesheets="@menuBarStylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" />
                             </children>
                         </AnchorPane>
                         <Canvas fx:id="canvas" height="498.0" width="822.0" />

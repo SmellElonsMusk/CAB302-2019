@@ -20,7 +20,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="javafx-swt" level="project" />
     <orderEntry type="library" name="JavaFX12" level="application" />
+    <orderEntry type="library" name="javafx-swt" level="project" />
   </component>
 </module>
