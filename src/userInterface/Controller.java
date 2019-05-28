@@ -163,8 +163,12 @@ public class Controller {
      */
     public void handlePenButton(ActionEvent event) {
 
-        String hex = "#" + Integer.toHexString(colorpicker.getValue().hashCode()).substring(0, 6).toUpperCase();
-        System.out.println("PEN "+ hex);
+
+//        String hex = "#" + Integer.toHexString(colorpicker.getValue().hashCode()).substring(0, 6).toUpperCase();
+//        System.out.println("PEN "+ hex);
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
 
     }
 

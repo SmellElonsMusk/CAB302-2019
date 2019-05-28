@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -69,7 +70,11 @@
                         <ToggleButton id="buttonToolPolygon" fx:id="polygonButton" mnemonicParsing="false" styleClass="buttonToolPolygon" stylesheets="@stylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="149.0" />
                                 <Separator layoutX="4.0" layoutY="191.0" prefHeight="0.0" prefWidth="68.0" />
                         <ToggleButton id="buttonToolFill" fx:id="fillButton" mnemonicParsing="false" onAction="#handleFillButton" styleClass="buttonToolFill" stylesheets="@stylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="201.0" />
-                                <ColorPicker id="colourPicker" fx:id="colorpicker" accessibleRole="COMBO_BOX" layoutX="14.0" layoutY="239.0" onAction="#handlePenButton" prefHeight="25.0" prefWidth="40.0" styleClass="colourPicker" stylesheets="@menuBarStylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" />
+                                <ColorPicker id="colourPicker" fx:id="colorpicker" accessibleRole="COMBO_BOX" layoutX="14.0" layoutY="239.0" onAction="#handlePenButton" prefHeight="25.0" prefWidth="40.0" styleClass="colourPicker" stylesheets="@menuBarStylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0">
+                                    <value>
+                                        <Color blue="0.0" green="0.0" red="0.0" />
+                                    </value>
+                                </ColorPicker>
                             </children>
                         </AnchorPane>
                         <Canvas fx:id="canvas" height="498.0" width="822.0" />
