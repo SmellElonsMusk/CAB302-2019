@@ -29,6 +29,7 @@ import java.net.URL;
 
 import backend.*;
 
+
 import javax.xml.catalog.Catalog;
 
 
@@ -139,6 +140,7 @@ public class Controller {
         if (plotButton.isSelected()){
             System.out.println("PLOT ON");
 
+
             // Disable other buttons
             lineButton.setDisable(true);
             rectangleButton.setDisable(true);
@@ -244,7 +246,7 @@ public class Controller {
      */
     public void handleRectangleButton(ActionEvent actionEvent) {
 
-        if (rectangleButton.isSelected()) {
+       if (rectangleButton.isSelected()) {
             System.out.println("RECTANGLE ON");
 
             // Disable all other buttons
@@ -253,40 +255,45 @@ public class Controller {
             ellipseButton.setDisable(true);
             polygonButton.setDisable(true);
 
-            canvas.setOnMousePressed (e -> {
+           canvas.getScene().setOnMousePressed (e -> {
                 xInit = e.getSceneX();
                 yInit = e.getSceneY();
 
+                System.out.println("x: " + xInit +" y: " + yInit);
+
                 newRect = new Rectangle();
 
-                newRect.setFill( Color.SNOW ) ; // almost white color
-                newRect.setStroke( Color.BLACK ) ;
+                newRect.setFill( colorpicker.getValue() ) ; // almost white color
+                newRect.setStroke( colorpicker.getValue() ) ;
 
                 rectGroup.getChildren().add(newRect);
 
                 newRectBeingDrawn = true;
             });
 
-            canvas.setOnMouseDragged( e-> {
+           canvas.getScene().setOnMouseDragged( e-> {
+               System.out.println("Mouse Dragging: ");
                 if (newRectBeingDrawn) {
                     double xFinal = e.getSceneX();
                     double yFinal = e.getSceneY();
+
+                    System.out.println("X: "+xFinal+" y: "+ yFinal);
 
                     drawRect(xInit, yInit, xFinal, yFinal, newRect);
                 }
             });
 
 
-            canvas.setOnMouseReleased( e-> {
-
+           canvas.getScene().setOnMouseReleased( e-> {
+               System.out.println("Mouse Drag Stopped");
                 if (newRectBeingDrawn) {
                     newRect.setFill(colorpicker.getValue());
-
                     newRect = null;
                     newRectBeingDrawn = false;
                 }
 
             });
+
         } else {
             System.out.println("RECTANGLE OFF");
 
