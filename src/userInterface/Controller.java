@@ -288,6 +288,60 @@ public class Controller {
         }
     }
 
+    /**
+     * @Author Kevin Duong, n9934731
+     * POLYGON function.
+     */
+    public void handlePolygonButton(ActionEvent event) {
+
+        Line line = new Line();
+
+        if (polygonButton.isSelected()){
+
+            // Disable other buttons
+            lineButton.setDisable(true);
+            plotButton.setDisable(true);
+            rectangleButton.setDisable(true);
+            ellipseButton.setDisable(true);
+
+            // Canvas drawing
+            canvas.setOnMousePressed( e -> {
+                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
+                line.setStartX(e.getX());
+                line.setStartY(e.getY());
+            });
+
+            canvas.setOnMouseDragged(e->{
+                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
+                //TODO: Show realtime line drag when making line
+            });
+
+            canvas.setOnMouseReleased(e->{
+                line.setEndX(e.getX());
+                line.setEndY(e.getY());
+                canvas.getGraphicsContext2D().strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+
+                // Output LINE coordinates
+                System.out.println("POLYGON " + line.getStartX() +  " " + line.getStartY() +  " " + line.getEndX() +  " " + line.getEndY());
+            });
+
+        } else {
+            // Deactivate function
+            canvas.setOnMousePressed(null);
+            canvas.setOnMouseDragged(null);
+            canvas.setOnMouseReleased(null);
+
+            // Restore buttons
+            lineButton.setDisable(false);
+            plotButton.setDisable(false);
+            rectangleButton.setDisable(false);
+            ellipseButton.setDisable(false);
+            fillButton.setDisable(false);
+        }
+
+    }
+
+
 
     /**
      * @Author Kevin Duong, n9934731
