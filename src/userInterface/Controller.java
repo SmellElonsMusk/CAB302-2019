@@ -32,6 +32,8 @@ public class Controller {
     @FXML private ColorPicker colorpicker; // Colour wheel
     @FXML private Canvas canvas;
     private File save_path;
+    private File currentFile;
+    private String openFile;
 
     @FXML ToggleButton lineButton;
     @FXML ToggleButton plotButton;
@@ -42,6 +44,7 @@ public class Controller {
 
     Color fillColour;
     Color strokeColour;
+
 
     /**
      * Initliases the Print stream for the GUi console
@@ -465,17 +468,19 @@ public class Controller {
          */
 
         // File directory address and opening dialog
-        File file_path = chooser.showOpenDialog(null);
+        save_path = chooser.showOpenDialog(null);
+        openFile = save_path.getAbsolutePath();
+        System.out.println();
 
-        //TEST
-        String path = file_path.getAbsolutePath();
-        System.out.println(path);
 
-        if (file_path != null) {
+        //TEST;
+        System.out.println(save_path);
+
+        if (save_path != null) {
 
             try {
                 // Gets only filename
-                String filename = new File(file_path.toString()).getName();
+                String filename = new File(save_path.toString()).getName();
 
                 // Launch new window
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -498,7 +503,7 @@ public class Controller {
 
             // Reading file...
             try {
-                FileReader fr = new FileReader(file_path);
+                FileReader fr = new FileReader(save_path);
                 BufferedReader br = new BufferedReader(fr);
 
                 String str;
@@ -522,7 +527,8 @@ public class Controller {
         //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
         StringBuilder sb = new StringBuilder();
 
-        if (save_path == null) {
+
+        if (save_path == null ) {
             FileChooser chooser = new FileChooser();
 
             chooser.getExtensionFilters().addAll(
@@ -530,29 +536,13 @@ public class Controller {
             );
 
             save_path = chooser.showSaveDialog(null).getAbsoluteFile();
-            System.out.println("File Saved!");
+            String newContent = console.getText();
+            sb.append(newContent);
+            //System.out.println("File Saved!");
         } else {
             String newContent = console.getText();
-
-            // Reading file...
-            try {
-                FileReader fr = new FileReader(save_path);
-                BufferedReader br = new BufferedReader(fr);
-
-                String str;
-                while ((str = br.readLine()) != null) {
-                    sb.append(str);
-                }
-
-                sb.append(newContent);
-                System.out.println("File Saved!");
-
-                br.close();
-
-
-            } catch (IOException e) {
-                System.out.println("File not found");
-            }
+            sb.append(newContent);
+            //System.out.println("File Saved!");
 
 
         }
@@ -560,6 +550,10 @@ public class Controller {
         FileWriter fileWriter = new FileWriter(save_path);
         fileWriter.write(sb.toString());
         fileWriter.close();
+
+
+
+
 
     }
 
@@ -578,7 +572,7 @@ public class Controller {
                 new FileChooser.ExtensionFilter("VEC Files", "*.vec")
         );
 
-        save_path = chooser.showSaveDialog(null);
+        save_path = chooser.showSaveDialog(null).getAbsoluteFile();
 
         if (save_path != null) {
 
