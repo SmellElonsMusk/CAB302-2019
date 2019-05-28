@@ -1,38 +1,21 @@
 package userInterface;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.awt.*;
 import java.io.*;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import java.net.URL;
-
-import backend.*;
-
-
-import javax.xml.catalog.Catalog;
-
 
 /**
  *
@@ -47,6 +30,7 @@ public class Controller {
     @FXML private PrintStream ps; // Streams to console on GUI
     @FXML private ColorPicker colorpicker; // Colour wheel
     @FXML private Canvas canvas;
+    private File save_path;
 
     @FXML ToggleButton lineButton;
     @FXML ToggleButton plotButton;
@@ -54,6 +38,9 @@ public class Controller {
     @FXML ToggleButton ellipseButton;
     @FXML ToggleButton polygonButton;
     @FXML ToggleButton fillButton;
+
+    Color fillColour;
+    Color strokeColour;
 
     /**
      * Initliases the Print stream for the GUi console
@@ -172,6 +159,7 @@ public class Controller {
      * Creates Rectangle given the specified Coordinates
      *
      * @Author Waldo Fouche, n9950095
+     * @Author Kevin Duong
      */
     public void handleRectangleButton(ActionEvent actionEvent) {
 
@@ -186,7 +174,11 @@ public class Controller {
             polygonButton.setDisable(true);
 
             canvas.setOnMousePressed(e -> {
-                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
+                canvas.getGraphicsContext2D().setStroke(strokeColour);
+                if (fillButton.isSelected()) {
+
+                    canvas.getGraphicsContext2D().setFill(fillColour);
+                }
                 rectangle.setX(e.getX());
                 rectangle.setY(e.getY());
             });
@@ -207,8 +199,12 @@ public class Controller {
                     rectangle.setY(e.getY());
                 }
 
-                //canvas.getGraphicsContext2D().fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-                canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+                if (fillButton.isSelected()){
+                    canvas.getGraphicsContext2D().fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight()); // Creates filled in shape
+                    canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight()); // Creates outline of shape
+                } else {
+                    canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+                }
 
                 // Output RECTANGLE coordinates: X1,Y1,X2,Y2
                 System.out.println("RECTANGLE " + rectangle.getX() + " " + rectangle.getY() + " " + rectangle.getWidth() + " " + rectangle.getHeight());
@@ -249,11 +245,13 @@ public class Controller {
 
         // FILL Colour
         if (fillButton.isSelected()) {
+            fillColour = colorpicker.getValue(); // Saves the selected fill colour
             System.out.println("FILL "+ hex);
         }
         // PEN Colour
         else {
             // Outputs chosen colour
+            strokeColour = colorpicker.getValue(); // Saves the selected pen colour
             System.out.println("PEN "+ hex);
         }
 
@@ -407,6 +405,47 @@ public class Controller {
      */
     public void clickFileSave(ActionEvent actionEvent) throws IOException {
         //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
+        StringBuilder sb = new StringBuilder();
+
+        if (save_path == null) {
+            FileChooser chooser = new FileChooser();
+
+            chooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("VEC Files", "*.vec")
+            );
+
+            save_path = chooser.showSaveDialog(null).getAbsoluteFile();
+            System.out.println("File Saved!");
+        } else {
+            String newContent = console.getText();
+
+            // Reading file...
+            try {
+                FileReader fr = new FileReader(save_path);
+                BufferedReader br = new BufferedReader(fr);
+
+                String str;
+                while ((str = br.readLine()) != null) {
+                    sb.append(str);
+                }
+
+                sb.append(newContent);
+                System.out.println("File Saved!");
+
+                br.close();
+
+
+            } catch (IOException e) {
+                System.out.println("File not found");
+            }
+
+
+        }
+
+        FileWriter fileWriter = new FileWriter(save_path);
+        fileWriter.write(sb.toString());
+        fileWriter.close();
+
     }
 
     /**
@@ -424,7 +463,7 @@ public class Controller {
                 new FileChooser.ExtensionFilter("VEC Files", "*.vec")
         );
 
-        File save_path = chooser.showSaveDialog(null);
+        save_path = chooser.showSaveDialog(null);
 
         if (save_path != null) {
 
@@ -434,13 +473,15 @@ public class Controller {
             FileWriter fileWriter = new FileWriter(save_path);
             fileWriter.write(fileContent);
             fileWriter.close();
+
+            console.clear(); // clears console after save
         }
     }
 
 
     /**
      * Closes the program from File -> Close when clicked.
-     * @param actionEvent
+     * @Author Waldo Fouche
      */
     public void clickFileClose(ActionEvent actionEvent) {
         Platform.exit();
