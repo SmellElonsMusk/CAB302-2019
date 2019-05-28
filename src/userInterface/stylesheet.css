@@ -8,7 +8,7 @@
 /** Add icons to toolbar **/
 
 #buttonToolPlot {
-    -fx-background-image: url(icons/tools/oval.png);
+    -fx-background-image: url(icons/tools/plot.png);
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
 }
