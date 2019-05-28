@@ -47,19 +47,12 @@ public class Controller {
     @FXML private ColorPicker colorpicker; // Colour wheel
     @FXML private Canvas canvas;
 
-    @FXML
-    ToggleButton lineButton;
-    @FXML
-    ToggleButton plotButton;
-    @FXML
-    ToggleButton rectangleButton;
-    @FXML
-    ToggleButton ellipseButton;
-    @FXML
-    ToggleButton polygonButton;
-    @FXML
-    ToggleButton fillButton;
-
+    @FXML ToggleButton lineButton;
+    @FXML ToggleButton plotButton;
+    @FXML ToggleButton rectangleButton;
+    @FXML ToggleButton ellipseButton;
+    @FXML ToggleButton polygonButton;
+    @FXML ToggleButton fillButton;
 
     // Variables for Tools
     private double xInit;
@@ -138,7 +131,6 @@ public class Controller {
     public void handlePlotButton(ActionEvent actionEvent) {
 
         if (plotButton.isSelected()){
-            System.out.println("PLOT ON");
 
 
             // Disable other buttons
@@ -163,7 +155,6 @@ public class Controller {
             });
 
         } else {
-            System.out.println("PLOT OFF");
 
             // Deactivate function
             canvas.setOnMouseClicked(null);
@@ -183,23 +174,50 @@ public class Controller {
      */
     public void handlePenButton(ActionEvent event) {
 
+        //TODO: (Optional) update pen history and replacing old pen colour
+//        // If user changes colour in between before making a shape, the pen will update without deleting history
+//        String array[] = console.getText().split("\n");
+//        String textToSet = "";
+//        for(int i=1; i<array.length; i++){
+//            textToSet+=array[i-1] + "\n";
+//        }
+//
+//        console.setText(textToSet);
+
+        // Outputs chosen colour
         String hex = "#" + colorpicker.getValue().toString().toUpperCase().substring(2,8);
-        System.out.println("PEN "+ hex);
+
+        // FILL Colour
+        if (fillButton.isSelected()) {
+            System.out.println("FILL "+ hex);
+        }
+        // PEN Colour
+        else {
+            // Outputs chosen colour
+            System.out.println("PEN "+ hex);
+        }
+
     }
 
     /**
      * @Author Kevin Duong, n9934731
      * FILL Button tool that fills colours inside shape functions
      */
+    //TODO: clicking on fill button and colour to get the output FILL and colour RRGGBB. Disables LINE and PLOT
     public void handleFillButton(ActionEvent event) {
+
+        if (fillButton.isSelected()) {
 
             // Disable LINE and PLOT as they're not hollow
             lineButton.setDisable(true);
             plotButton.setDisable(true);
 
-
+        } else {
+            // Reopen buttons
+            lineButton.setDisable(false);
+            plotButton.setDisable(false);
             System.out.println("FILL OFF");
-
+        }
     }
 
 
