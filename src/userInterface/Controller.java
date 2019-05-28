@@ -6,16 +6,20 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -56,6 +60,16 @@ public class Controller {
     ToggleButton fillButton;
 
 
+    // Variables for Tools
+    private double xInit;
+    private double yInit;
+    Rectangle newRect = null;
+    Group rectGroup = new Group() ;
+
+    boolean newRectBeingDrawn = false;
+
+
+
     /**
      * Initliases the Print stream for the GUi console
      *
@@ -71,6 +85,10 @@ public class Controller {
         System.setErr(ps); // Sets the error output to gui display
     }
 
+    /**
+     *
+     * @Author Waldo Fouche, n9950095
+     */
     @FXML
     public void handleLineButton(ActionEvent ActionEvent) {
 
@@ -182,6 +200,99 @@ public class Controller {
             System.out.println("FILL OFF");
 
     }
+
+
+    /**
+     *
+     * Takes initial x,y coridinates and final x,y coridnates and creates a rectangle between the points
+     *
+     * @param xInit  - Inital X coordinate
+     * @param yInit - Inital Y coordinate
+     * @param xFinal  Final  X coordinate
+     * @param yFinal - Final y coordinate
+     * @param newRect - New Rectangle
+     *
+     * @Author Waldo Fouche, n9950095
+     */
+    private void drawRect(double xInit, double yInit, double xFinal, double yFinal, Rectangle newRect) {
+
+        newRect.setX(xInit);
+        newRect.setY(yInit);
+        newRect.setWidth(xFinal - xInit);
+        newRect.setWidth(yFinal - yInit);
+
+        if (newRect.getWidth() < 0 ){
+            newRect.setWidth(-newRect.getArcWidth());
+            newRect.setX(newRect.getX() - newRect.getWidth());
+        }
+
+        if (newRect.getHeight() < 0) {
+            newRect.setHeight(-newRect.getHeight());
+            newRect.setY(newRect.getY() - newRect.getHeight());
+        }
+    }
+
+
+    /**
+     *
+     * @Author Waldo Fouche, n9950095
+     */
+    public void handleRectangleButton(ActionEvent actionEvent) {
+
+        if (rectangleButton.isSelected()) {
+            System.out.println("RECTANGLE ON");
+
+            // Disable all other buttons
+            lineButton.setDisable(true);
+            plotButton.setDisable(true);
+            ellipseButton.setDisable(true);
+            polygonButton.setDisable(true);
+
+            canvas.setOnMousePressed (e -> {
+                xInit = e.getSceneX();
+                yInit = e.getSceneY();
+
+                newRect = new Rectangle();
+
+                newRect.setFill( Color.SNOW ) ; // almost white color
+                newRect.setStroke( Color.BLACK ) ;
+
+                rectGroup.getChildren().add(newRect);
+
+                newRectBeingDrawn = true;
+            });
+
+            canvas.setOnMouseDragged( e-> {
+                if (newRectBeingDrawn) {
+                    double xFinal = e.getSceneX();
+                    double yFinal = e.getSceneY();
+
+                    drawRect(xInit, yInit, xFinal, yFinal, newRect);
+                }
+            });
+
+
+            canvas.setOnMouseReleased( e-> {
+
+                if (newRectBeingDrawn) {
+                    newRect.setFill(colorpicker.getValue());
+
+                    newRect = null;
+                    newRectBeingDrawn = false;
+                }
+
+            });
+        } else {
+            System.out.println("RECTANGLE OFF");
+
+            // Re - enable all other buttons
+            lineButton.setDisable(false);
+            plotButton.setDisable(false);
+            ellipseButton.setDisable(false);
+            polygonButton.setDisable(false);
+        }
+    }
+
 
 
 
