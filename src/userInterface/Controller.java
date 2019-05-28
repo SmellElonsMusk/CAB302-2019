@@ -46,6 +46,12 @@ public class Controller {
     ToggleButton lineButton;
     @FXML
     ToggleButton plotButton;
+    @FXML
+    ToggleButton rectangleButton;
+    @FXML
+    ToggleButton ellipseButton;
+    @FXML
+    ToggleButton polygonButton;
 
 
     /**
@@ -69,6 +75,12 @@ public class Controller {
         if (lineButton.isSelected()){
             System.out.println("LINE ON");
 
+            // Disable other buttons
+            plotButton.setDisable(true);
+            rectangleButton.setDisable(true);
+            ellipseButton.setDisable(true);
+            polygonButton.setDisable(true);
+
             canvas.setOnMouseDragged( e -> {
                 double size = 10.00;
                 double x = e.getX();
@@ -81,7 +93,14 @@ public class Controller {
         } else {
             System.out.println("LINE OFF");
 
+            // Deactivate function
             canvas.setOnMouseDragged(null);
+
+            // Restore buttons
+            plotButton.setDisable(false);
+            rectangleButton.setDisable(false);
+            ellipseButton.setDisable(false);
+            polygonButton.setDisable(false);
         }
     }
 
@@ -95,6 +114,12 @@ public class Controller {
 
         if (plotButton.isSelected()){
             System.out.println("PLOT ON");
+
+            // Disable other buttons
+            lineButton.setDisable(true);
+            rectangleButton.setDisable(true);
+            ellipseButton.setDisable(true);
+            polygonButton.setDisable(true);
 
             // PEN update colour
             colorpicker.setOnMouseClicked( e -> {
@@ -119,7 +144,14 @@ public class Controller {
         } else {
             System.out.println("PLOT OFF");
 
+            // Deactivate function
             canvas.setOnMouseClicked(null);
+
+            // Restore buttons
+            lineButton.setDisable(false);
+            rectangleButton.setDisable(false);
+            ellipseButton.setDisable(false);
+            polygonButton.setDisable(false);
         }
     }
 
