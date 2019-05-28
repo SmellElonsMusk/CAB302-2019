@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -42,9 +43,8 @@ public class Controller {
     @FXML ToggleButton polygonButton;
     @FXML ToggleButton fillButton;
 
-    Color fillColour;
+    Color fillColour = Color.WHITE;
     Color strokeColour;
-
 
     /**
      * Initliases the Print stream for the GUi console
@@ -246,6 +246,10 @@ public class Controller {
 
             canvas.setOnMousePressed(e -> {
                 canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
+                if (fillButton.isSelected()) {
+
+                    canvas.getGraphicsContext2D().setFill(fillColour);
+                }
                 ellipse.setCenterX(e.getX());
                 ellipse.setCenterY(e.getY());
             });
@@ -266,8 +270,12 @@ public class Controller {
                     ellipse.setCenterY(e.getY());
                 }
 
-                //canvas.getGraphicsContext2D().fillOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
-                canvas.getGraphicsContext2D().strokeOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
+                if (fillButton.isSelected()) {
+                    canvas.getGraphicsContext2D().fillOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
+                    canvas.getGraphicsContext2D().strokeOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
+                } else {
+                    canvas.getGraphicsContext2D().strokeOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
+                }
 
                 // Output ELLIPSE coordinates: X1,Y1,X2,Y2
                 System.out.println("ELLIPSE " + ellipse.getCenterX() + " " + ellipse.getCenterY() + " " + ellipse.getRadiusX() + " " + ellipse.getRadiusY());
@@ -293,7 +301,7 @@ public class Controller {
      */
     public void handlePolygonButton(ActionEvent event) {
 
-        Line line = new Line();
+        Polygon polygon = new Polygon();
 
         if (polygonButton.isSelected()){
 
@@ -306,8 +314,7 @@ public class Controller {
             // Canvas drawing
             canvas.setOnMousePressed( e -> {
                 canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
-                line.setStartX(e.getX());
-                line.setStartY(e.getY());
+
             });
 
             canvas.setOnMouseDragged(e->{
@@ -316,12 +323,10 @@ public class Controller {
             });
 
             canvas.setOnMouseReleased(e->{
-                line.setEndX(e.getX());
-                line.setEndY(e.getY());
-                canvas.getGraphicsContext2D().strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
 
-                // Output LINE coordinates
-                System.out.println("POLYGON " + line.getStartX() +  " " + line.getStartY() +  " " + line.getEndX() +  " " + line.getEndY());
+
+                // Output POLYGON coordinates
+                System.out.println("POLYGON ");
             });
 
         } else {
@@ -339,8 +344,6 @@ public class Controller {
         }
 
     }
-
-
 
     /**
      * @Author Kevin Duong, n9934731
@@ -470,11 +473,9 @@ public class Controller {
         // File directory address and opening dialog
         save_path = chooser.showOpenDialog(null);
         openFile = save_path.getAbsolutePath();
-        System.out.println();
-
 
         //TEST;
-        System.out.println(save_path);
+        System.out.println("Location of file opened: " + save_path);
 
         if (save_path != null) {
 
@@ -515,6 +516,9 @@ public class Controller {
             } catch (IOException e) {
                 System.out.println("File not found");
             }
+
+            //TODO: Attempting to load image based on code
+            
         }
     }
 
@@ -539,6 +543,8 @@ public class Controller {
             String newContent = console.getText();
             sb.append(newContent);
             //System.out.println("File Saved!");
+
+
         } else {
             String newContent = console.getText();
             sb.append(newContent);
@@ -550,10 +556,6 @@ public class Controller {
         FileWriter fileWriter = new FileWriter(save_path);
         fileWriter.write(sb.toString());
         fileWriter.close();
-
-
-
-
 
     }
 
@@ -583,7 +585,8 @@ public class Controller {
             fileWriter.write(fileContent);
             fileWriter.close();
 
-            console.clear(); // clears console after save
+            // Gets only filename
+            String filename = new File(save_path.toString()).getName();
         }
     }
 
