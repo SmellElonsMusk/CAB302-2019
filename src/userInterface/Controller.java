@@ -55,16 +55,6 @@ public class Controller {
     @FXML ToggleButton polygonButton;
     @FXML ToggleButton fillButton;
 
-    // Variables for Tools
-    private double xInit;
-    private double yInit;
-    Rectangle newRect = null;
-    Group rectGroup = new Group() ;
-
-    boolean newRectBeingDrawn = false;
-
-
-
     /**
      * Initliases the Print stream for the GUi console
      *
@@ -88,7 +78,6 @@ public class Controller {
     public void handleLineButton(ActionEvent ActionEvent) {
 
         Line line = new Line();
-        canvas.getGraphicsContext2D().setLineWidth(1);
 
         if (lineButton.isSelected()){
 
@@ -122,11 +111,11 @@ public class Controller {
                 System.out.println("LINE " + line.getStartX() +  " " + line.getStartY() +  " " + line.getEndX() +  " " + line.getEndY());
             });
 
-
-
         } else {
             // Deactivate function
+            canvas.setOnMousePressed(null);
             canvas.setOnMouseDragged(null);
+            canvas.setOnMouseReleased(null);
 
             // Restore buttons
             plotButton.setDisable(false);
@@ -147,7 +136,6 @@ public class Controller {
 
         if (plotButton.isSelected()){
 
-
             // Disable other buttons
             lineButton.setDisable(true);
             rectangleButton.setDisable(true);
@@ -158,15 +146,12 @@ public class Controller {
             fillButton.setDisable(true);
 
             canvas.setOnMouseClicked( e -> {
-                double size = 5.00;
-                double x = e.getX();
-                double y = e.getY();
 
                 canvas.getGraphicsContext2D().setFill(colorpicker.getValue());
-                canvas.getGraphicsContext2D().fillRoundRect(x,y,size,size,size,size);
+                canvas.getGraphicsContext2D().fillRoundRect(e.getX(),e.getY(),5,5,5,5);
 
                 // PLOT Output
-                System.out.println("PLOT " + x + " " + y);
+                System.out.println("PLOT " + e.getX() + " " + e.getY());
             });
 
         } else {
@@ -180,6 +165,66 @@ public class Controller {
             ellipseButton.setDisable(false);
             polygonButton.setDisable(false);
             fillButton.setDisable(false);
+        }
+    }
+
+    /**
+     * Creates Rectangle given the specified Coordinates
+     *
+     * @Author Waldo Fouche, n9950095
+     */
+    public void handleRectangleButton(ActionEvent actionEvent) {
+
+        Rectangle rectangle = new Rectangle();
+
+        if (rectangleButton.isSelected()) {
+
+            // Disable all other buttons
+            lineButton.setDisable(true);
+            plotButton.setDisable(true);
+            ellipseButton.setDisable(true);
+            polygonButton.setDisable(true);
+
+            canvas.setOnMousePressed(e -> {
+                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
+                rectangle.setX(e.getX());
+                rectangle.setY(e.getY());
+            });
+
+            canvas.setOnMouseDragged(e -> {
+                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
+            });
+
+            canvas.setOnMouseReleased(e -> {
+                rectangle.setWidth(Math.abs((e.getX() - rectangle.getX())));
+                rectangle.setHeight(Math.abs((e.getY() - rectangle.getY())));
+
+                if (rectangle.getX() > e.getX()) {
+                    rectangle.setX(e.getX());
+                }
+
+                if (rectangle.getY() > e.getY()) {
+                    rectangle.setY(e.getY());
+                }
+
+                //canvas.getGraphicsContext2D().fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+                canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+
+                // Output RECTANGLE coordinates: X1,Y1,X2,Y2
+                System.out.println("RECTANGLE " + rectangle.getX() + " " + rectangle.getY() + " " + rectangle.getWidth() + " " + rectangle.getHeight());
+            });
+        } else {
+
+            // Deactivate function
+            canvas.setOnMousePressed(null);
+            canvas.setOnMouseDragged(null);
+            canvas.setOnMouseReleased(null);
+
+            // Re - enable all other buttons
+            lineButton.setDisable(false);
+            plotButton.setDisable(false);
+            ellipseButton.setDisable(false);
+            polygonButton.setDisable(false);
         }
     }
 
@@ -234,107 +279,6 @@ public class Controller {
             System.out.println("FILL OFF");
         }
     }
-
-
-    /**
-     *
-     * Takes initial x,y coridinates and final x,y coridnates and creates a rectangle between the points
-     *
-     * @param xInit  - Inital X coordinate
-     * @param yInit - Inital Y coordinate
-     * @param xFinal  Final  X coordinate
-     * @param yFinal - Final y coordinate
-     * @param newRect - New Rectangle
-     *
-     * @Author Waldo Fouche, n9950095
-     */
-    private void drawRect(double xInit, double yInit, double xFinal, double yFinal, Rectangle newRect) {
-
-        newRect.setX(xInit);
-        newRect.setY(yInit);
-        newRect.setWidth(xFinal - xInit);
-        newRect.setWidth(yFinal - yInit);
-
-        if (newRect.getWidth() < 0 ){
-            newRect.setWidth(-newRect.getArcWidth());
-            newRect.setX(newRect.getX() - newRect.getWidth());
-        }
-
-        if (newRect.getHeight() < 0) {
-            newRect.setHeight(-newRect.getHeight());
-            newRect.setY(newRect.getY() - newRect.getHeight());
-        }
-    }
-
-
-    /**
-     * Creates Rectangle given the specified Coordinates
-     *
-     * @Author Waldo Fouche, n9950095
-     */
-    public void handleRectangleButton(ActionEvent actionEvent) {
-
-       if (rectangleButton.isSelected()) {
-            System.out.println("RECTANGLE ON");
-
-            // Disable all other buttons
-            lineButton.setDisable(true);
-            plotButton.setDisable(true);
-            ellipseButton.setDisable(true);
-            polygonButton.setDisable(true);
-
-           canvas.getScene().setOnMousePressed (e -> {
-                xInit = e.getSceneX();
-                yInit = e.getSceneY();
-
-                System.out.println("x: " + xInit +" y: " + yInit);
-
-                newRect = new Rectangle();
-
-                newRect.setFill( colorpicker.getValue() ) ; // almost white color
-                newRect.setStroke( colorpicker.getValue() ) ;
-
-                rectGroup.getChildren().add(newRect);
-
-                newRectBeingDrawn = true;
-            });
-
-           canvas.getScene().setOnMouseDragged( e-> {
-               System.out.println("Mouse Dragging: ");
-                if (newRectBeingDrawn) {
-                    double xFinal = e.getSceneX();
-                    double yFinal = e.getSceneY();
-
-                    System.out.println("X: "+xFinal+" y: "+ yFinal);
-
-                    drawRect(xInit, yInit, xFinal, yFinal, newRect);
-                }
-            });
-
-
-           canvas.getScene().setOnMouseReleased( e-> {
-               System.out.println("Mouse Drag Stopped");
-                if (newRectBeingDrawn) {
-                    newRect.setFill(colorpicker.getValue());
-                    newRect = null;
-                    newRectBeingDrawn = false;
-                }
-
-            });
-
-        } else {
-            System.out.println("RECTANGLE OFF");
-
-            // Re - enable all other buttons
-            lineButton.setDisable(false);
-            plotButton.setDisable(false);
-            ellipseButton.setDisable(false);
-            polygonButton.setDisable(false);
-        }
-    }
-
-
-
 
     /**
      * Streams the text being sent from the console to the GUI console display
@@ -409,6 +353,10 @@ public class Controller {
 
         // File directory address and opening dialog
         File file_path = chooser.showOpenDialog(null);
+
+        //TEST
+        String path = file_path.getAbsolutePath();
+        System.out.println(path);
 
         if (file_path != null) {
 
