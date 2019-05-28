@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -69,8 +68,8 @@
                         <ToggleButton id="buttonToolEllipse" fx:id="ellipseButton" mnemonicParsing="false" styleClass="buttonToolEllipse" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="360.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="114.0" />
                         <ToggleButton id="buttonToolPolygon" fx:id="polygonButton" mnemonicParsing="false" styleClass="buttonToolPolygon" stylesheets="@stylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="149.0" />
                                 <Separator layoutX="4.0" layoutY="191.0" prefHeight="0.0" prefWidth="68.0" />
-                                <Button id="buttonToolFill" layoutX="15.0" layoutY="201.0" mnemonicParsing="false" styleClass="buttonToolFill" stylesheets="@stylesheet.css" text="       " AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="201.0" />
-                                <ColorPicker id="colourPicker" fx:id="colorpicker" accessibleRole="COMBO_BOX" layoutX="14.0" layoutY="239.0" prefHeight="25.0" prefWidth="40.0" styleClass="colourPicker" stylesheets="@menuBarStylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" />
+                        <ToggleButton id="buttonToolFill" fx:id="fillButton" mnemonicParsing="false" onAction="#handleFillButton" styleClass="buttonToolFill" stylesheets="@stylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="201.0" />
+                                <ColorPicker id="colourPicker" fx:id="colorpicker" accessibleRole="COMBO_BOX" layoutX="14.0" layoutY="239.0" onAction="#handlePenButton" prefHeight="25.0" prefWidth="40.0" styleClass="colourPicker" stylesheets="@menuBarStylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" />
                             </children>
                         </AnchorPane>
                         <Canvas fx:id="canvas" height="498.0" width="822.0" />

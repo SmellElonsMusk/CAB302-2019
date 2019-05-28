@@ -52,6 +52,8 @@ public class Controller {
     ToggleButton ellipseButton;
     @FXML
     ToggleButton polygonButton;
+    @FXML
+    ToggleButton fillButton;
 
 
     /**
@@ -81,6 +83,9 @@ public class Controller {
             ellipseButton.setDisable(true);
             polygonButton.setDisable(true);
 
+            // LINE does not use FILL
+            fillButton.setDisable(true);
+
             canvas.setOnMouseDragged( e -> {
                 double size = 10.00;
                 double x = e.getX();
@@ -101,6 +106,7 @@ public class Controller {
             rectangleButton.setDisable(false);
             ellipseButton.setDisable(false);
             polygonButton.setDisable(false);
+            fillButton.setDisable(false);
         }
     }
 
@@ -121,13 +127,8 @@ public class Controller {
             ellipseButton.setDisable(true);
             polygonButton.setDisable(true);
 
-            // PEN update colour
-            colorpicker.setOnMouseClicked( e -> {
-
-                //TODO: Convert colour value to Web colour
-                System.out.println("PEN "+ colorpicker.getValue());
-
-            });
+            // PLOT does not use FILL
+            fillButton.setDisable(true);
 
             canvas.setOnMouseClicked( e -> {
                 double size = 5.00;
@@ -152,8 +153,36 @@ public class Controller {
             rectangleButton.setDisable(false);
             ellipseButton.setDisable(false);
             polygonButton.setDisable(false);
+            fillButton.setDisable(false);
         }
     }
+
+    /**
+     * @Author Kevin Duong, n9934731
+     * Updates the PEN colour
+     */
+    public void handlePenButton(ActionEvent event) {
+
+        String hex = "#" + Integer.toHexString(colorpicker.getValue().hashCode()).substring(0, 6).toUpperCase();
+        System.out.println("PEN "+ hex);
+
+    }
+
+    /**
+     * @Author Kevin Duong, n9934731
+     * FILL Button tool that fills colours inside shape functions
+     */
+    public void handleFillButton(ActionEvent event) {
+
+            // Disable LINE and PLOT as they're not hollow
+            lineButton.setDisable(true);
+            plotButton.setDisable(true);
+
+
+            System.out.println("FILL OFF");
+
+    }
+
 
 
     /**
