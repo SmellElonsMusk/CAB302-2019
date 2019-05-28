@@ -72,7 +72,7 @@
                                 <ColorPicker id="colourPicker" fx:id="colorpicker" accessibleRole="COMBO_BOX" layoutX="14.0" layoutY="239.0" onAction="#handlePenButton" prefHeight="25.0" prefWidth="40.0" styleClass="colourPicker" stylesheets="@menuBarStylesheet.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="20.0" />
                             </children>
                         </AnchorPane>
-                        <Canvas fx:id="canvas" height="498.0" onMouseClicked="#canvasOnMouseClicked" onMouseDragged="#canvasOnMouseDragged" onMouseReleased="#canvasOnMouseReleased" width="822.0" />
+                        <Canvas fx:id="canvas" height="498.0"  width="822.0" />
                     </children>
                 </HBox>
             </children>

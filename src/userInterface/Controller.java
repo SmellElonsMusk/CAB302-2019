@@ -234,6 +234,7 @@ public class Controller {
 
 
     /**
+     * Creates Rectangle given the specified Coordinates
      *
      * @Author Waldo Fouche, n9950095
      */
