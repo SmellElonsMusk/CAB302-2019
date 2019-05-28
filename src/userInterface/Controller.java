@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -86,8 +87,10 @@ public class Controller {
     @FXML
     public void handleLineButton(ActionEvent ActionEvent) {
 
+        Line line = new Line();
+        canvas.getGraphicsContext2D().setLineWidth(1);
+
         if (lineButton.isSelected()){
-            System.out.println("LINE ON");
 
             // Disable other buttons
             plotButton.setDisable(true);
@@ -98,18 +101,30 @@ public class Controller {
             // LINE does not use FILL
             fillButton.setDisable(true);
 
-            canvas.setOnMouseDragged( e -> {
-                double size = 10.00;
-                double x = e.getX();
-                double y = e.getY();
-
-                canvas.getGraphicsContext2D().setFill(colorpicker.getValue());
-                canvas.getGraphicsContext2D().fillRoundRect(x,y,size,size,size,size);
+            // Canvas drawing
+            canvas.setOnMousePressed( e -> {
+                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
+                line.setStartX(e.getX());
+                line.setStartY(e.getY());
             });
 
-        } else {
-            System.out.println("LINE OFF");
+            canvas.setOnMouseDragged(e->{
+                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
+                //TODO: Show realtime line drag when making line
+            });
 
+            canvas.setOnMouseReleased(e->{
+                line.setEndX(e.getX());
+                line.setEndY(e.getY());
+                canvas.getGraphicsContext2D().strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+
+                // Output LINE coordinates
+                System.out.println("LINE " + line.getStartX() +  " " + line.getStartY() +  " " + line.getEndX() +  " " + line.getEndY());
+            });
+
+
+
+        } else {
             // Deactivate function
             canvas.setOnMouseDragged(null);
 
