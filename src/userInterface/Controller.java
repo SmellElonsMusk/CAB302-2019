@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -223,6 +224,120 @@ public class Controller {
             polygonButton.setDisable(false);
         }
     }
+
+    /**
+     * @Author Kevin Duong, n9934731
+     * ELLIPSE function.
+     */
+    public void handleEllipseButton(ActionEvent event) {
+
+        Ellipse ellipse = new Ellipse();
+
+        if (ellipseButton.isSelected()) {
+
+            // Disable all other buttons
+            lineButton.setDisable(true);
+            plotButton.setDisable(true);
+            rectangleButton.setDisable(true);
+            polygonButton.setDisable(true);
+
+            canvas.setOnMousePressed(e -> {
+                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
+                ellipse.setCenterX(e.getX());
+                ellipse.setCenterY(e.getY());
+            });
+
+            canvas.setOnMouseDragged(e -> {
+                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
+            });
+
+            canvas.setOnMouseReleased(e -> {
+
+                ellipse.setRadiusX(Math.abs(e.getX() - ellipse.getCenterX()));
+                ellipse.setRadiusY(Math.abs(e.getY() - ellipse.getCenterY()));
+
+                if(ellipse.getCenterX() > e.getX()) {
+                    ellipse.setCenterX(e.getX());
+                }
+                if(ellipse.getCenterY() > e.getY()) {
+                    ellipse.setCenterY(e.getY());
+                }
+
+                //canvas.getGraphicsContext2D().fillOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
+                canvas.getGraphicsContext2D().strokeOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
+
+                // Output ELLIPSE coordinates: X1,Y1,X2,Y2
+                System.out.println("ELLIPSE " + ellipse.getCenterX() + " " + ellipse.getCenterY() + " " + ellipse.getRadiusX() + " " + ellipse.getRadiusY());
+            });
+        } else {
+
+            // Deactivate function
+            canvas.setOnMousePressed(null);
+            canvas.setOnMouseDragged(null);
+            canvas.setOnMouseReleased(null);
+
+            // Re - enable all other buttons
+            lineButton.setDisable(false);
+            plotButton.setDisable(false);
+            rectangleButton.setDisable(false);
+            polygonButton.setDisable(false);
+        }
+    }
+
+    /**
+     * @Author Kevin Duong, n9934731
+     * POLYGON function.
+     */
+    public void handlePolygonButton(ActionEvent event) {
+
+        Line line = new Line();
+
+        if (polygonButton.isSelected()){
+
+            // Disable other buttons
+            lineButton.setDisable(true);
+            plotButton.setDisable(true);
+            rectangleButton.setDisable(true);
+            ellipseButton.setDisable(true);
+
+            // Canvas drawing
+            canvas.setOnMousePressed( e -> {
+                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
+                line.setStartX(e.getX());
+                line.setStartY(e.getY());
+            });
+
+            canvas.setOnMouseDragged(e->{
+                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
+                //TODO: Show realtime line drag when making line
+            });
+
+            canvas.setOnMouseReleased(e->{
+                line.setEndX(e.getX());
+                line.setEndY(e.getY());
+                canvas.getGraphicsContext2D().strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+
+                // Output LINE coordinates
+                System.out.println("POLYGON " + line.getStartX() +  " " + line.getStartY() +  " " + line.getEndX() +  " " + line.getEndY());
+            });
+
+        } else {
+            // Deactivate function
+            canvas.setOnMousePressed(null);
+            canvas.setOnMouseDragged(null);
+            canvas.setOnMouseReleased(null);
+
+            // Restore buttons
+            lineButton.setDisable(false);
+            plotButton.setDisable(false);
+            rectangleButton.setDisable(false);
+            ellipseButton.setDisable(false);
+            fillButton.setDisable(false);
+        }
+
+    }
+
+
 
     /**
      * @Author Kevin Duong, n9934731
