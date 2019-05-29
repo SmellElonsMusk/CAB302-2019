@@ -4,10 +4,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
@@ -16,6 +19,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,13 +30,12 @@ import java.util.logging.Logger;
  *
  * @Author: Waldo Fouche, Kevin Doung
  */
-public class Controller {
+public class Controller implements Initializable {
 
 
     @FXML private TextArea console; // Console on GUI display
     @FXML private PrintStream ps; // Streams to console on GUI
     @FXML private ColorPicker colorpicker; // Colour wheel
-    @FXML private Canvas canvas;
     private File save_path;
     private File currentFile;
     private String openFile;
@@ -48,6 +52,24 @@ public class Controller {
     Color fillColour = Color.WHITE;
     Color strokeColour;
 
+    @FXML
+    BorderPane borderPane;
+
+    @FXML private Canvas canvas;
+
+    @FXML
+    public GraphicsContext gc;
+
+    public void initGraphics() {
+        gc = canvas.getGraphicsContext2D();
+    }
+
+    public void drawClicked() {
+
+        gc.setFill(Color.RED);
+        gc.fillRect(175, 0, canvas.getWidth()-350, canvas.getHeight());
+    }
+
     /**
      * Initliases the Print stream for the GUi console
      *
@@ -57,7 +79,22 @@ public class Controller {
      *
      * @Author Waldo Fouche, n9950095
      */
-    public void initialize(){
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initGraphics();
+
+        borderPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> {
+            canvas.setWidth(newValue.doubleValue());
+            drawClicked();
+        });
+
+        borderPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> {
+            canvas.setHeight(newValue.doubleValue());
+            drawClicked();
+        });
+
         ps = new PrintStream(new Console(console)) ;
         System.setOut(ps); // sets the console output to gui display
         System.setErr(ps); // Sets the error output to gui display

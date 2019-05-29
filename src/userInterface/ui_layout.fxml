@@ -18,9 +18,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.Controller">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.Controller">
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: linen;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Shapes">
                <font>
@@ -109,7 +109,7 @@
       </MenuBar>
    </top>
    <right>
-      <VBox prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: linen;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: blue;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Output" translateX="100.0">
                <font>
