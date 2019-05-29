@@ -43,6 +43,8 @@ public class Controller {
     @FXML ToggleButton polygonButton;
     @FXML ToggleButton fillButton;
 
+    @FXML Button undoButton;
+
     Color fillColour = Color.WHITE;
     Color strokeColour;
 
@@ -322,8 +324,6 @@ public class Controller {
             });
 
             canvas.setOnMouseReleased(e->{
-
-
                 // Output POLYGON coordinates
                 System.out.println("POLYGON ");
             });
@@ -396,6 +396,21 @@ public class Controller {
             plotButton.setDisable(false);
             System.out.println("FILL OFF");
         }
+    }
+
+    /**
+     * @Author Kevin Duong, n9934731
+     * Undo Button - removes one step at a time
+     * @param event
+     */
+
+    public void handleUndoButton(ActionEvent event) {
+        String array[] = console.getText().split("\n");
+        String textToSet = "";
+        for(int i=1; i<array.length; i++){
+            textToSet+=array[i-1] + "\n";
+        }
+        console.setText(textToSet);
     }
 
     /**
