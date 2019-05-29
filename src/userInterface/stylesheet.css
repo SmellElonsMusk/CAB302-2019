@@ -1,11 +1,16 @@
+/** Add icons to toolbar **/
+
+#buttonUndo {
+    -fx-background-image: url(icons/tools/undo.png);
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
 
 #buttonToolLine {
     -fx-background-image: url(icons/tools/line.png);
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
 }
-
-/** Add icons to toolbar **/
 
 #buttonToolPlot {
     -fx-background-image: url(icons/tools/plot.png);

@@ -89,8 +89,7 @@ public class Controller {
             });
 
             canvas.setOnMouseDragged(e->{
-                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
-                //TODO: Show realtime line drag when making line
+
             });
 
             canvas.setOnMouseReleased(e->{
@@ -488,7 +487,7 @@ public class Controller {
                 fxmlLoader.setLocation(getClass().getResource("ui_layout.fxml"));
 
                 // Implement stylesheet
-                Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+                Scene scene = new Scene(fxmlLoader.load(), 950, 680);
                 scene.getStylesheets().add("userInterface/stylesheet.css");
                 scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
 
