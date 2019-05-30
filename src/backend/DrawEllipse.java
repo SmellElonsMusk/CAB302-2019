@@ -3,8 +3,15 @@ package backend;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
+
+/**
+ * ELLIPSE SHAPE FUNCTIONALITY
+ *
+ * @author Waldo Fouche, n9950095 (OOP)
+ * @author Kevin Duong, n9934731 (Function)
+ *
+ **/
 
 public class DrawEllipse extends Tool {
 
@@ -28,11 +35,10 @@ public class DrawEllipse extends Tool {
         });
 
         canvas.setOnMouseDragged(e -> {
-            canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
+            //TODO: Show realtime Ellipse drag when in process of creating Ellipse
         });
 
         canvas.setOnMouseReleased(e -> {
-
             ellipse.setRadiusX(Math.abs(e.getX() - ellipse.getCenterX()));
             ellipse.setRadiusY(Math.abs(e.getY() - ellipse.getCenterY()));
 
@@ -53,6 +59,5 @@ public class DrawEllipse extends Tool {
             // Output ELLIPSE coordinates: X1,Y1,X2,Y2
             System.out.println("ELLIPSE " + ellipse.getCenterX() + " " + ellipse.getCenterY() + " " + ellipse.getRadiusX() + " " + ellipse.getRadiusY());
         });
-
     }
 }

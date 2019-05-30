@@ -2,21 +2,23 @@ package backend;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
-import userInterface.Controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+/**
+ * Streams the text being sent from the console to the GUI console display
+ *
+ * @author Waldo Fouche, n9950095
+ **/
+
 public class ConsoleGUI {
+
     private PrintStream ps; // Streams to console on GUI
 
-    /**
-     * Streams the text being sent from the console to the GUI console display
-     *
-     * @author Waldo Fouche, n9950095
-     **/
     public class Console extends OutputStream {
+
         private TextArea console;
 
         public Console(TextArea console) {

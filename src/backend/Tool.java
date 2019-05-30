@@ -4,6 +4,11 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ToggleButton;
 
+/**
+ * TOOL FUNCTIONALITY
+ * @Author Waldo Fouche, n9934731
+ */
+
 public class Tool {
 
     private Canvas canvas;
@@ -12,7 +17,6 @@ public class Tool {
     public Tool (Canvas canvas) {
         this.canvas = canvas;
     }
-
 
     public Tool(Canvas canvas, ColorPicker colorPicker) {
         this.canvas = canvas;
@@ -25,6 +29,5 @@ public class Tool {
 
     public Tool(Canvas canvas, ColorPicker colorPicker, ToggleButton fillButton) {
         this.canvas = canvas;
-
     }
 }

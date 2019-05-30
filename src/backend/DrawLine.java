@@ -1,10 +1,16 @@
 package backend;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.shape.Line;
+
+/**
+ * LINE SHAPE FUNCTIONALITY
+ *
+ * @author Waldo Fouche, n9950095 (OOP)
+ * @author Kevin Duong, n9934731 (Function)
+ *
+ **/
 
 public class DrawLine extends Tool {
 
@@ -22,7 +28,7 @@ public class DrawLine extends Tool {
         });
 
         canvas.setOnMouseDragged(e->{
-
+            //TODO: Show realtime Line drag when in process of creating Line
         });
 
         canvas.setOnMouseReleased(e->{
@@ -33,7 +39,5 @@ public class DrawLine extends Tool {
             // Output LINE coordinates
             System.out.println("LINE " + line.getStartX() +  " " + line.getStartY() +  " " + line.getEndX() +  " " + line.getEndY());
         });
-
-
     }
 }

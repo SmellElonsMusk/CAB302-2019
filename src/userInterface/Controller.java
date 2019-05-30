@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.*;
@@ -118,6 +119,7 @@ public class Controller implements Initializable {
         } else {
             deActivateDrawing();
             EnableButtons enableButtons = new EnableButtons(lineButton,plotButton,rectangleButton,ellipseButton,polygonButton);
+            fillButton.setDisable(false);
         }
     }
 
@@ -135,7 +137,8 @@ public class Controller implements Initializable {
             DrawPlot newPlot = new DrawPlot(canvas, colorpicker);
         } else {
             deActivateDrawing();
-            EnableButtons enableButtons = new EnableButtons(plotButton,lineButton,rectangleButton,ellipseButton,polygonButton)
+            EnableButtons enableButtons = new EnableButtons(plotButton,lineButton,rectangleButton,ellipseButton,polygonButton);
+            fillButton.setDisable(false);
         }
     }
 
@@ -146,13 +149,13 @@ public class Controller implements Initializable {
      * @Author Kevin Duong
      */
     public void handleRectangleButton(ActionEvent actionEvent) {
-            if (rectangleButton.isSelected()) {
-                DisableButtons disableButtons = new DisableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
-                DrawRectangle newRectangle = new DrawRectangle(canvas,fillButton,colorpicker);
-            } else {
-                deActivateDrawing();
-                EnableButtons enableButtons = new EnableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
-            }
+        if (rectangleButton.isSelected()) {
+            DisableButtons disableButtons = new DisableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
+            DrawRectangle newRectangle = new DrawRectangle(canvas,fillButton,colorpicker);
+        } else {
+            deActivateDrawing();
+            EnableButtons enableButtons = new EnableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
+        }
     }
 
     /**
@@ -190,14 +193,6 @@ public class Controller implements Initializable {
     public void handlePenButton(ActionEvent event) {
 
         //TODO: (Optional) update pen history and replacing old pen colour
-//        // If user changes colour in between before making a shape, the pen will update without deleting history
-//        String array[] = console.getText().split("\n");
-//        String textToSet = "";
-//        for(int i=1; i<array.length; i++){
-//            textToSet+=array[i-1] + "\n";
-//        }
-//
-//        console.setText(textToSet);
 
         // Outputs chosen colour
         String hex = "#" + colorpicker.getValue().toString().toUpperCase().substring(2,8);
@@ -213,7 +208,6 @@ public class Controller implements Initializable {
             strokeColour = colorpicker.getValue(); // Saves the selected pen colour
             System.out.println("PEN "+ hex);
         }
-
     }
 
     /**
@@ -228,8 +222,6 @@ public class Controller implements Initializable {
             // Disable LINE and PLOT as they're not hollow
             lineButton.setDisable(true);
             plotButton.setDisable(true);
-
-
 
         } else {
             // Reopen buttons
@@ -271,7 +263,7 @@ public class Controller implements Initializable {
             scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
 
             Stage stage = new Stage();
-            stage.setTitle("Vec Draw - Untitled");
+            stage.setTitle("VEC Paint - Untitled");
             stage.setScene(scene);
             stage.show();
 
@@ -280,7 +272,6 @@ public class Controller implements Initializable {
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
     }
-
 
     /**
      * @author Kevin Duong, n9934731
@@ -350,7 +341,6 @@ public class Controller implements Initializable {
             }
 
             //TODO: Attempting to load image based on code
-            
         }
     }
 
@@ -362,7 +352,6 @@ public class Controller implements Initializable {
     public void clickFileSave(ActionEvent actionEvent) throws IOException {
         //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
         StringBuilder sb = new StringBuilder();
-
 
         if (save_path == null ) {
             FileChooser chooser = new FileChooser();
@@ -376,19 +365,15 @@ public class Controller implements Initializable {
             sb.append(newContent);
             //System.out.println("File Saved!");
 
-
         } else {
             String newContent = console.getText();
             sb.append(newContent);
             //System.out.println("File Saved!");
-
-
         }
 
         FileWriter fileWriter = new FileWriter(save_path);
         fileWriter.write(sb.toString());
         fileWriter.close();
-
     }
 
     /**
@@ -421,7 +406,7 @@ public class Controller implements Initializable {
             String filename = new File(save_path.toString()).getName();
         }
     }
-    
+
     /**
      * Closes the program from File -> Close when clicked.
      * @Author Waldo Fouche

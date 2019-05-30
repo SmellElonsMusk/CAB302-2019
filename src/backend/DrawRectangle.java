@@ -1,11 +1,17 @@
 package backend;
 
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+/**
+ * RECTANGLE SHAPE FUNCTIONALITY
+ *
+ * @author Waldo Fouche, n9950095 (OOP)
+ * @author Kevin Duong, n9934731 (Function)
+ *
+ **/
 
 public class DrawRectangle extends Tool{
 
@@ -29,7 +35,7 @@ public class DrawRectangle extends Tool{
         });
 
         canvas.setOnMouseDragged(e -> {
-            canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
+            //TODO: Show realtime Rectangle drag when in process of creating Rectangle
         });
 
         canvas.setOnMouseReleased(e -> {
@@ -54,7 +60,5 @@ public class DrawRectangle extends Tool{
             // Output RECTANGLE coordinates: X1,Y1,X2,Y2
             System.out.println("RECTANGLE " + rectangle.getX() + " " + rectangle.getY() + " " + rectangle.getWidth() + " " + rectangle.getHeight());
         });
-
-
     }
 }

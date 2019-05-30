@@ -15,7 +15,7 @@ public class Main extends Application {
     public void start(Stage primaryStage){
         try{
             BorderPane root = FXMLLoader.load(getClass().getResource("ui_layout.fxml"));
-            primaryStage.setTitle("Vec Draw - Untitled");
+            primaryStage.setTitle("VEC Paint - Untitled");
             Scene scene = new Scene(root,950,680);
 
             // Stylesheet for icons, design
