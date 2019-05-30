@@ -1,6 +1,5 @@
 package backend;
 
-
 import java.io.*;
 import javafx.scene.canvas.Canvas;
 import java.util.ArrayList;
@@ -8,6 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ *
+ * Loads Text from VEC file, Processes for Tool Commands, parses the data to a Regex command that
+ * extracts all necessary coordinates, Then pushes the coordinates to drawing commands and displays
+ * on the current window
+ *
  * TODO: Add ability to recognise Tool Commands (LINE, RECTANGLE, ETC) and draw them seperately
  * TODO: Scan each line of the file and grab the Tool command with its corresponding coords
  *

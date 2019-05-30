@@ -14,17 +14,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import backend.*;
 
 /**
- * CONTROLLER FOR JAVAFX
+ * CONTROLLER FOR JAVAFX FXML
  * @author: Waldo Fouche, Kevin Duong
  */
 public class Controller implements Initializable {
@@ -289,7 +286,7 @@ public class Controller implements Initializable {
         fc.Open();
         if (fc.getFile() != null) {
             String filename = fc.getFileName();
-            //newWindow(filename);
+            //newWindow(filename); TODO: Fix drawing open in new window not on previous
             fileReader read = new fileReader(fc.getFile());
 
             //TODO: Attempting to load image based on code
@@ -300,7 +297,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * @author Kevin Duong, n9934731 Waldo Fouche
+     * @author Kevin Duong, n9934731 Waldo Fouche, n9950095
      * File is saved, by updating the image code to the .vec file.
      * @param actionEvent
      */
@@ -346,7 +343,8 @@ public class Controller implements Initializable {
 
         fileChooser fc = new fileChooser();
         fc.Save();
-        SaveAs save = new SaveAs(fc.getFile(),console);
+        Save save = new Save(fc.getFile(),console);
+        save.As();
 
         //newWindow(fc.getFileName());
     }

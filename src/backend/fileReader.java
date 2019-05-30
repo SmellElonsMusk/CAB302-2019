@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class fileReader {
     private File file;
     public fileReader (File file) {

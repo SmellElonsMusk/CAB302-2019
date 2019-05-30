@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Custom Filechooser command. Loads up the filechooser and can
+ * Custom File chooser command. Loads up the file chooser and can
  * set it to save or open dynamically
  *
  * @Author Waldo Fouche, n9950095
