@@ -4,8 +4,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.shape.Line;
 
-import static jdk.nashorn.internal.objects.NativeMath.round;
-
 /**
  * LINE SHAPE FUNCTIONALITY
  *
@@ -27,18 +25,10 @@ public class DrawLine extends Tool {
             canvas.getGraphicsContext2D().setStroke(colorPicker.getValue());
             line.setStartX(e.getX());
             line.setStartY(e.getY());
-
-            System.out.println("Height: " + canvas.getHeight());
-            System.out.println("Width: " + canvas.getWidth());
-
-            ConvertCoordinates e3 = new ConvertCoordinates(canvas);
         });
 
         canvas.setOnMouseDragged(e->{
             //TODO: Show realtime Line drag when in process of creating Line
-
-
-
         });
 
         canvas.setOnMouseReleased(e->{
@@ -46,13 +36,35 @@ public class DrawLine extends Tool {
             line.setEndY(e.getY());
             canvas.getGraphicsContext2D().strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
 
+            // Square Ratio 1:1
+            String startX = String.format("%.2f", line.getStartX()/canvas.getWidth());
+            String startY = String.format("%.2f", line.getStartY()/canvas.getWidth());
+            String endX = String.format("%.2f", line.getEndX()/canvas.getWidth());
+            String endY = String.format("%.2f",line.getEndY()/canvas.getWidth());
 
 
-            String startX = String.format("%.6f", line.getStartX()/canvas.getWidth());
-            String endY = String.format("%.6f",line.getEndY()/canvas.getWidth());
+            // If (X2) reaches beyond left border
+            if (line.getEndX()/canvas.getWidth() > 1) {
+                endX = "0.0";
+            }
 
-            // Output LINE coordinates
-            //System.out.println("LINE " + startX + " " + round(line.getStartY()/canvas.getWidth(),6) +  " " + round(line.getEndX()/canvas.getWidth(),6) +  " " + endY);
+            // If (X2) reaches beyond right border
+            if (line.getEndX()/canvas.getWidth() > 1) {
+                endX = "1.0";
+            }
+
+            // IF (Y2) reaches above the top border
+            if (line.getEndY()/canvas.getWidth() < 0 || line.getEndY()/canvas.getWidth() > 1) {
+                endY = "0.0";
+            }
+
+            // IF (Y2) reaches the bottom border
+            if (line.getEndY()/canvas.getWidth() > 1) {
+                endY = "1.0";
+            }
+
+            // Output LINE coordinates X1,Y1,X2,Y2
+            System.out.println("LINE " + startX + " " + startY +  " " + endX +  " " + endY);
         });
     }
 }

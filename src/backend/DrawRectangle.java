@@ -5,6 +5,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.shape.Rectangle;
 
+
+
 /**
  * RECTANGLE SHAPE FUNCTIONALITY
  *
@@ -63,8 +65,31 @@ public class DrawRectangle extends Tool{
                 canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
             }
 
+            // Square Ratio 1:1
+            String startX = String.format("%.2f", rectangle.getX()/canvas.getWidth());
+            String startY = String.format("%.2f", rectangle.getY()/canvas.getWidth());
+            String endX = String.format("%.2f", rectangle.getWidth()/canvas.getWidth());
+            String endY = String.format("%.2f",rectangle.getHeight()/canvas.getWidth());
+
+            //TODO: FIX Coordinate Boundaries
+
+            // If END of width (X1) reaches beyond left border
+            if (rectangle.getX()/canvas.getWidth() < 0) {
+                startX = "0.0";
+            }
+
+            // If END of width (X2) reaches beyond right border
+            if (rectangle.getWidth()/canvas.getWidth() > 1) {
+                endX = "1.0";
+            }
+
+            // IF Y1 reaches above the top border
+            if (rectangle.getY()/canvas.getWidth() < 0) {
+                startY = "0.0";
+            }
+
             // Output RECTANGLE coordinates: X1,Y1,X2,Y2
-            System.out.println("RECTANGLE " + rectangle.getX() + " " + rectangle.getY() + " " + rectangle.getWidth() + " " + rectangle.getHeight());
+            System.out.println("RECTANGLE " + startX + " " + startY + " " + endX + " " + endY);
         });
     }
 }

@@ -20,7 +20,12 @@ public class DrawPlot extends Tool {
             canvas.getGraphicsContext2D().setFill(colorPicker.getValue());
             canvas.getGraphicsContext2D().fillRoundRect(e.getX(),e.getY(),5,5,5,5);
 
-            System.out.println("PLOT " + e.getX() + " " + e.getY());
+            // Square Ratio 1:1
+            String x1 = String.format("%.2f", e.getX()/canvas.getWidth());
+            String y1 = String.format("%.2f", e.getY()/canvas.getWidth());
+
+            // Output PLOT coordinates: X,Y
+            System.out.println("PLOT " + x1 + " " + y1);
         });
     }
 }
