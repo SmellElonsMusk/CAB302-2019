@@ -3,13 +3,12 @@ package userInterface;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import backend.*;
 
 public class Main extends Application {
+
 
     @Override
     public void start(Stage primaryStage){
@@ -37,3 +36,19 @@ public class Main extends Application {
         }
     }
 }
+
+//    public static void main ( String args[] )
+//    {
+//        String input = "text 3.454 sometext5.567568more_text";
+//        ArrayList < Double > myDoubles = new ArrayList < Double >();
+//        Matcher matcher = Pattern.compile( "[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?" ).matcher( input );
+//
+//        while ( matcher.find() )
+//        {
+//            double element = Double.parseDouble( matcher.group() );
+//            myDoubles.add( element );
+//        }
+//
+//        for ( double element: myDoubles )
+//            System.out.println( element );
+//    }

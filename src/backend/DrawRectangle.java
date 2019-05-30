@@ -17,6 +17,12 @@ public class DrawRectangle extends Tool{
 
     private Rectangle rectangle;
 
+    private double from_x = 0;
+    private double from_y = 0;
+    private double to_x = 0;
+    private double to_y = 0;
+    private int line_no = 1;
+
     public DrawRectangle(Canvas canvas, ToggleButton fillButton, ColorPicker colorPicker) {
         super(canvas);
 

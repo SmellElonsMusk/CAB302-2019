@@ -36,6 +36,9 @@ public class DrawLine extends Tool {
 
         canvas.setOnMouseDragged(e->{
             //TODO: Show realtime Line drag when in process of creating Line
+
+
+
         });
 
         canvas.setOnMouseReleased(e->{
@@ -49,7 +52,7 @@ public class DrawLine extends Tool {
             String endY = String.format("%.6f",line.getEndY()/canvas.getWidth());
 
             // Output LINE coordinates
-            System.out.println("LINE " + startX + " " + round(line.getStartY()/canvas.getWidth(),6) +  " " + round(line.getEndX()/canvas.getWidth(),6) +  " " + endY);
+            //System.out.println("LINE " + startX + " " + round(line.getStartY()/canvas.getWidth(),6) +  " " + round(line.getEndX()/canvas.getWidth(),6) +  " " + endY);
         });
     }
 }
