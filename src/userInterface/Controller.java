@@ -303,6 +303,24 @@ public class Controller implements Initializable {
             openFile = fc.getFile();
 
             //TODO: Attempting to load image based on code
+
+            // Reading file...
+            try {
+                FileReader fr = new FileReader(fc.getFile());
+                BufferedReader br = new BufferedReader(fr);
+
+                String str;
+                while ((str = br.readLine()) != null) {
+                    System.out.println(str);
+
+                }
+
+                br.close();
+            } catch (IOException e) {
+                System.out.println("File not found");
+            }
+
+
         }
     }
 

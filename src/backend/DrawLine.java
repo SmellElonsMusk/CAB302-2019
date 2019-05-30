@@ -4,6 +4,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.shape.Line;
 
+import static jdk.nashorn.internal.objects.NativeMath.round;
+
 /**
  * LINE SHAPE FUNCTIONALITY
  *
@@ -25,6 +27,11 @@ public class DrawLine extends Tool {
             canvas.getGraphicsContext2D().setStroke(colorPicker.getValue());
             line.setStartX(e.getX());
             line.setStartY(e.getY());
+
+            System.out.println("Height: " + canvas.getHeight());
+            System.out.println("Width: " + canvas.getWidth());
+
+            ConvertCoordinates e3 = new ConvertCoordinates(canvas);
         });
 
         canvas.setOnMouseDragged(e->{
@@ -36,8 +43,13 @@ public class DrawLine extends Tool {
             line.setEndY(e.getY());
             canvas.getGraphicsContext2D().strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
 
+
+
+            String startX = String.format("%.6f", line.getStartX()/canvas.getWidth());
+            String endY = String.format("%.6f",line.getEndY()/canvas.getWidth());
+
             // Output LINE coordinates
-            System.out.println("LINE " + line.getStartX() +  " " + line.getStartY() +  " " + line.getEndX() +  " " + line.getEndY());
+            System.out.println("LINE " + startX + " " + round(line.getStartY()/canvas.getWidth(),6) +  " " + round(line.getEndX()/canvas.getWidth(),6) +  " " + endY);
         });
     }
 }
