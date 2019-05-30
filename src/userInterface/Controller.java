@@ -67,7 +67,7 @@ public class Controller implements Initializable {
     public void drawClicked() {
 
         gc.setFill(Color.RED);
-        gc.fillRect(175, 0, canvas.getWidth()-350, canvas.getHeight());
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     /**
@@ -86,12 +86,12 @@ public class Controller implements Initializable {
         initGraphics();
 
         borderPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> {
-            canvas.setWidth(newValue.doubleValue());
+            canvas.setWidth(newValue.doubleValue()-350);
             drawClicked();
         });
 
         borderPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> {
-            canvas.setHeight(newValue.doubleValue());
+            canvas.setHeight(newValue.doubleValue()-100);
             drawClicked();
         });
 
