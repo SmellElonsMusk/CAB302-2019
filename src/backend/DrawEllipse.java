@@ -57,7 +57,14 @@ public class DrawEllipse extends Tool {
             }
 
             // Output ELLIPSE coordinates: X1,Y1,X2,Y2
-            System.out.println("ELLIPSE " + ellipse.getCenterX() + " " + ellipse.getCenterY() + " " + ellipse.getRadiusX() + " " + ellipse.getRadiusY());
+
+            String centreX = String.format("%.2f", ellipse.getCenterX()/canvas.getWidth());
+            String centreY = String.format("%.2f", ellipse.getCenterY()/canvas.getHeight());
+            String radiusX = String.format("%.2f", ellipse.getRadiusX()/canvas.getWidth());
+            String radiusY = String.format("%.2f", ellipse.getRadiusY()/canvas.getHeight());
+
+
+            System.out.println("ELLIPSE " + centreX + " " + centreY + " " + radiusX + " " +radiusY);
         });
     }
 }
