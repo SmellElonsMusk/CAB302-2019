@@ -33,9 +33,8 @@ public class Controller implements Initializable {
 
     @FXML private TextArea console; // Console on GUI display
     @FXML private ColorPicker colorpicker; // Colour wheel
-    private File save_path;
+    private File openFile;
     private File currentFile;
-    private String openFile;
 
     @FXML ToggleButton lineButton;
     @FXML ToggleButton plotButton;
@@ -94,6 +93,38 @@ public class Controller implements Initializable {
     }
 
     /**
+     * Creates a new window and sets the title based on the filename
+     *
+     * @Author Kevin Duong , Waldo Fouche, n9950095
+     * @param filename
+     */
+    public void newWindow (String filename) {
+        if (filename == null) {
+            filename = "untitled";
+        }
+        try {
+            // Launch new window
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("ui_layout.fxml"));
+
+            // Implement stylesheet
+            Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+            scene.getStylesheets().add("userInterface/stylesheet.css");
+            scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
+
+            Stage stage = new Stage();
+            stage.setTitle("VEC Paint - " + filename);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
+    }
+
+
+    /**
      * Deactivates the drawing function
      */
     public void deActivateDrawing() {
@@ -102,7 +133,6 @@ public class Controller implements Initializable {
         canvas.setOnMouseReleased(null);
         canvas.setOnMouseClicked(null);
     }
-
 
     /**
      *
@@ -251,25 +281,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void clickFileNew(ActionEvent actionEvent) {
-        try {
-            // Launch new window
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("ui_layout.fxml"));
-
-            // Implement stylesheet
-            Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-            scene.getStylesheets().add("userInterface/stylesheet.css");
-            scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
-
-            Stage stage = new Stage();
-            stage.setTitle("VEC Paint - Untitled");
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Failed to create new Window.", e);
-        }
+        newWindow(null);
     }
 
     /**
@@ -281,63 +293,14 @@ public class Controller implements Initializable {
      */
     @FXML
     protected void clickFileOpen(ActionEvent actionEvent) throws IOException {
-        FileChooser chooser = new FileChooser();
+        fileChooser fc = new fileChooser();
+        fc.Open();
+        if (fc.getFile() != null) {
+            String filename = fc.getFileName();
+            newWindow(filename);
+            fileReader read = new fileReader(fc.getFile());
 
-        chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("VEC Files", "*.vec")
-        );
-
-        /*
-            If the user successfully finds a file, then a new window will open with the selected image
-            Otherwise if the user cancels or exits the dialog, do not open a new window
-         */
-
-        // File directory address and opening dialog
-        save_path = chooser.showOpenDialog(null);
-        openFile = save_path.getAbsolutePath();
-
-        //TEST;
-        System.out.println("Location of file opened: " + save_path);
-
-        if (save_path != null) {
-
-            try {
-                // Gets only filename
-                String filename = new File(save_path.toString()).getName();
-
-                // Launch new window
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("ui_layout.fxml"));
-
-                // Implement stylesheet
-                Scene scene = new Scene(fxmlLoader.load(), 950, 680);
-                scene.getStylesheets().add("userInterface/stylesheet.css");
-                scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
-
-                Stage stage = new Stage();
-                stage.setTitle("Vec Draw - " + filename);
-                stage.setScene(scene);
-                stage.show();
-
-            } catch (IOException e) {
-                Logger logger = Logger.getLogger(getClass().getName());
-                logger.log(Level.SEVERE, "Failed to create new Window.", e);
-            }
-
-            // Reading file...
-            try {
-                FileReader fr = new FileReader(save_path);
-                BufferedReader br = new BufferedReader(fr);
-
-                String str;
-                while ((str = br.readLine()) != null) {
-                    System.out.println(str);
-                }
-
-                br.close();
-            } catch (IOException e) {
-                System.out.println("File not found");
-            }
+            openFile = fc.getFile();
 
             //TODO: Attempting to load image based on code
         }
@@ -351,28 +314,32 @@ public class Controller implements Initializable {
     public void clickFileSave(ActionEvent actionEvent) throws IOException {
         //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
         StringBuilder sb = new StringBuilder();
+        String newContent;
+//        try {
+//            Save newSave = new Save(openFile, console);
+//        } catch (IOException e) {
+//            System.out.println("File Save Error");
+//        }
 
-        if (save_path == null ) {
-            FileChooser chooser = new FileChooser();
+        if (openFile == null ) {
+            fileChooser fc = new fileChooser();
+            fc.Save();
 
-            chooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("VEC Files", "*.vec")
-            );
-
-            save_path = chooser.showSaveDialog(null).getAbsoluteFile();
-            String newContent = console.getText();
+            openFile = fc.getFile().getAbsoluteFile();
+            newContent = console.getText();
             sb.append(newContent);
-            //System.out.println("File Saved!");
-
-        } else {
-            String newContent = console.getText();
-            sb.append(newContent);
-            //System.out.println("File Saved!");
         }
 
-        FileWriter fileWriter = new FileWriter(save_path);
+        else {
+            newContent = console.getText();
+            sb.append(newContent);
+        }
+
+        FileWriter fileWriter = new FileWriter(openFile);
         fileWriter.write(sb.toString());
         fileWriter.close();
+
+
     }
 
     /**
@@ -384,26 +351,11 @@ public class Controller implements Initializable {
     @FXML
     public void clickFileSaveAs(ActionEvent actionEvent) throws IOException {
 
-        FileChooser chooser = new FileChooser();
+        fileChooser fc = new fileChooser();
+        fc.Save();
+        SaveAs save = new SaveAs(fc.getFile(),console);
 
-        chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("VEC Files", "*.vec")
-        );
-
-        save_path = chooser.showSaveDialog(null).getAbsoluteFile();
-
-        if (save_path != null) {
-
-            // Information from text area
-            String fileContent = console.getText();
-
-            FileWriter fileWriter = new FileWriter(save_path);
-            fileWriter.write(fileContent);
-            fileWriter.close();
-
-            // Gets only filename
-            String filename = new File(save_path.toString()).getName();
-        }
+        //newWindow(fc.getFileName());
     }
 
     /**
