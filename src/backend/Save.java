@@ -7,21 +7,25 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * @Author Waldo Fouche, n9950095
+ */
 public class Save {
-    private File File;
+    private File file;
     private StringBuilder sb;
     private String newContent;
-    private File openfile;
+
+    private TextArea textArea;
 
     public Save (File file, TextArea textArea) throws IOException {
         this.sb = new StringBuilder();
-        this.openfile = file;
+        this.file = file;
 
-        if (openfile == null ) {
+        if (file == null ) {
             fileChooser fc = new fileChooser();
             fc.Save();
 
-            openfile = fc.getFile().getAbsoluteFile();
+           file = fc.getFile().getAbsoluteFile();
             this.newContent = textArea.getText();
             sb.append(newContent);
         }
@@ -31,10 +35,25 @@ public class Save {
             sb.append(newContent);
         }
 
-        FileWriter fileWriter = new FileWriter(openfile);
+        FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(sb.toString());
         fileWriter.close();
 
     }
 
+    public void As () throws IOException {
+        this.file = file;
+        if (file != null) {
+
+            // Information from text area
+            String fileContent = textArea.getText();
+
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(fileContent);
+            fileWriter.close();
+
+            // Gets only filename
+            String filename = new File(file.toString()).getName();
+        }
+    }
 }
