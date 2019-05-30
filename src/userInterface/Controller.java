@@ -288,61 +288,11 @@ public class Controller implements Initializable {
             //newWindow(filename);
             fileReader read = new fileReader(fc.getFile());
 
-            openFile = fc.getFile();
-
             //TODO: Attempting to load image based on code
-
-            // Reading file...
-            try {
-                FileReader fr = new FileReader(fc.getFile());
-                BufferedReader br = new BufferedReader(fr);
-
-                int lineCount = 0;
-                String str;
-                String[] dataIn = new String[100];
-                while ((str = br.readLine()) != null) {
-                    dataIn[lineCount] = str;
-                    lineCount +=1;
-
-                    //System.out.println(str);
-
-
-//                    ArrayList<Double> myDoubles = new ArrayList<Double>();
-//                    Matcher matcher = Pattern.compile("[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?").matcher(str);
-//
-//                    while (matcher.find()) {
-//                        double element = Double.parseDouble(matcher.group());
-//                        myDoubles.add(element);
-//                    }
-//
-//                    Double x1 = myDoubles.get(0)*canvas.getWidth();
-//                    Double y1 = myDoubles.get(1)*canvas.getHeight();
-//                    Double x2 = myDoubles.get(2)*canvas.getWidth();
-//                    Double y2 = myDoubles.get(3)*canvas.getHeight();
-//                    canvas.getGraphicsContext2D().strokeLine(x1,y1,x2,y2);
-
-
-//                    for (double element : myDoubles)
-//                        System.out.println(element);
-
-
-
-                }
-                System.out.println(lineCount);
-                //String[][] dataIn = new String[1][lineCount];
-
-                for (int i = 0; i < lineCount; i++) {
-                    System.out.println(dataIn[i]);
-                }
-
-
-                br.close();
-            } catch (IOException e) {
-                System.out.println("File not found");
-            }
-
+            DrawFromFile newDraw = new DrawFromFile (canvas,fc.getFile());
 
         }
+
     }
 
     /**
