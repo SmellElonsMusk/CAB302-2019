@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.*;
@@ -118,7 +117,7 @@ public class Controller implements Initializable {
             DrawLine newLine = new DrawLine(canvas,colorpicker);
         } else {
             deActivateDrawing();
-            EnableButtons enableButtons = new EnableButtons(lineButton,plotButton,rectangleButton,ellipseButton,polygonButton);
+            ReEnableButtons reEnableButtons = new ReEnableButtons(lineButton,plotButton,rectangleButton,ellipseButton,polygonButton);
             fillButton.setDisable(false);
         }
     }
@@ -137,7 +136,7 @@ public class Controller implements Initializable {
             DrawPlot newPlot = new DrawPlot(canvas, colorpicker);
         } else {
             deActivateDrawing();
-            EnableButtons enableButtons = new EnableButtons(plotButton,lineButton,rectangleButton,ellipseButton,polygonButton);
+            ReEnableButtons reEnableButtons = new ReEnableButtons(plotButton,lineButton,rectangleButton,ellipseButton,polygonButton);
             fillButton.setDisable(false);
         }
     }
@@ -154,7 +153,7 @@ public class Controller implements Initializable {
             DrawRectangle newRectangle = new DrawRectangle(canvas,fillButton,colorpicker);
         } else {
             deActivateDrawing();
-            EnableButtons enableButtons = new EnableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
+            ReEnableButtons reEnableButtons = new ReEnableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
         }
     }
 
@@ -168,7 +167,7 @@ public class Controller implements Initializable {
             DrawEllipse newEllipse = new DrawEllipse(canvas,fillButton,colorpicker);
         } else {
             deActivateDrawing();
-            EnableButtons enableButtons = new EnableButtons(ellipseButton,lineButton,plotButton,rectangleButton,polygonButton);
+            ReEnableButtons reEnableButtons = new ReEnableButtons(ellipseButton,lineButton,plotButton,rectangleButton,polygonButton);
         }
     }
 
@@ -182,7 +181,7 @@ public class Controller implements Initializable {
             DrawPolygon newPolygon = new DrawPolygon(canvas,colorpicker);
         } else {
             deActivateDrawing();
-            EnableButtons enableButtons = new EnableButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);
+            ReEnableButtons reEnableButtons = new ReEnableButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);
         }
     }
 

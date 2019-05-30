@@ -2,13 +2,19 @@ package backend;
 
 import javafx.scene.control.ToggleButton;
 
-public class EnableButtons {
+/**
+ * Re-Enables all other buttons if a button is turned off
+ *
+ * @author Waldo Fouche, n9950095
+ **/
+
+public class ReEnableButtons {
     ToggleButton b1;
     ToggleButton b2;
     ToggleButton b3;
     ToggleButton b4;
 
-    public EnableButtons(ToggleButton clickedButton, ToggleButton b1,ToggleButton b2,ToggleButton b3,ToggleButton b4) {
+    public ReEnableButtons(ToggleButton clickedButton, ToggleButton b1, ToggleButton b2, ToggleButton b3, ToggleButton b4) {
 
         this.b1 = b1;
         this.b2 = b2;
@@ -19,6 +25,5 @@ public class EnableButtons {
         b2.setDisable(false);
         b3.setDisable(false);
         b4.setDisable(false);
-
     }
 }

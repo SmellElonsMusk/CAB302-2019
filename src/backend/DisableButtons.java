@@ -1,7 +1,12 @@
 package backend;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+
+/**
+ * Disables all other buttons if a button is clicked
+ *
+ * @author Waldo Fouche, n9950095
+ **/
 
 public class DisableButtons {
 
