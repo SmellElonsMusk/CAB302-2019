@@ -12,9 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.*;
@@ -99,7 +96,7 @@ public class Controller implements Initializable {
     /**
      * Deactivates the drawing function
      */
-    public void deActivate() {
+    public void deActivateDrawing() {
         canvas.setOnMousePressed(null);
         canvas.setOnMouseDragged(null);
         canvas.setOnMouseReleased(null);
@@ -113,31 +110,14 @@ public class Controller implements Initializable {
      */
     @FXML
     public void handleLineButton(ActionEvent ActionEvent) {
-
-
         if (lineButton.isSelected()){
-
-            // Disable other buttons
-            plotButton.setDisable(true);
-            rectangleButton.setDisable(true);
-            ellipseButton.setDisable(true);
-            polygonButton.setDisable(true);
-
+            DisableButtons disable = new DisableButtons(lineButton,plotButton,rectangleButton,ellipseButton,polygonButton);
             // LINE does not use FILL
             fillButton.setDisable(true);
-
             DrawLine newLine = new DrawLine(canvas,colorpicker);
-
         } else {
-            // Deactivate function
-            deActivate();
-
-            // Restore buttons
-            plotButton.setDisable(false);
-            rectangleButton.setDisable(false);
-            ellipseButton.setDisable(false);
-            polygonButton.setDisable(false);
-            fillButton.setDisable(false);
+            deActivateDrawing();
+            EnableButtons enableButtons = new EnableButtons(lineButton,plotButton,rectangleButton,ellipseButton,polygonButton);
         }
     }
 
@@ -148,31 +128,14 @@ public class Controller implements Initializable {
      */
     @FXML
     public void handlePlotButton(ActionEvent actionEvent) {
-
         if (plotButton.isSelected()){
-
-            // Disable other buttons
-            lineButton.setDisable(true);
-            rectangleButton.setDisable(true);
-            ellipseButton.setDisable(true);
-            polygonButton.setDisable(true);
-
+            DisableButtons disable = new DisableButtons(plotButton,lineButton,rectangleButton,ellipseButton,polygonButton);
             // PLOT does not use FILL
             fillButton.setDisable(true);
-
             DrawPlot newPlot = new DrawPlot(canvas, colorpicker);
-
         } else {
-
-            // Deactivate function
-            deActivate();
-
-            // Restore buttons
-            lineButton.setDisable(false);
-            rectangleButton.setDisable(false);
-            ellipseButton.setDisable(false);
-            polygonButton.setDisable(false);
-            fillButton.setDisable(false);
+            deActivateDrawing();
+            EnableButtons enableButtons = new EnableButtons(plotButton,lineButton,rectangleButton,ellipseButton,polygonButton)
         }
     }
 
@@ -183,37 +146,13 @@ public class Controller implements Initializable {
      * @Author Kevin Duong
      */
     public void handleRectangleButton(ActionEvent actionEvent) {
-
             if (rectangleButton.isSelected()) {
-
-                // Disable all other buttons
-                lineButton.setDisable(true);
-                plotButton.setDisable(true);
-                ellipseButton.setDisable(true);
-                polygonButton.setDisable(true);
-
-
+                DisableButtons disableButtons = new DisableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
                 DrawRectangle newRectangle = new DrawRectangle(canvas,fillButton,colorpicker);
-
-
-
-
-
             } else {
-
-                // Deactivate function
-                deActivate();
-
-                // Re - enable all other buttons
-                lineButton.setDisable(false);
-                plotButton.setDisable(false);
-                ellipseButton.setDisable(false);
-                polygonButton.setDisable(false);
+                deActivateDrawing();
+                EnableButtons enableButtons = new EnableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
             }
-
-
-
-
     }
 
     /**
@@ -222,22 +161,11 @@ public class Controller implements Initializable {
      */
     public void handleEllipseButton(ActionEvent event) {
         if (ellipseButton.isSelected()) {
-
-            // Disable all other buttons
-            lineButton.setDisable(true);
-            plotButton.setDisable(true);
-            rectangleButton.setDisable(true);
-            polygonButton.setDisable(true);
-
+            DisableButtons disableButtons = new DisableButtons(ellipseButton,lineButton,plotButton,rectangleButton,polygonButton);
             DrawEllipse newEllipse = new DrawEllipse(canvas,fillButton,colorpicker);
         } else {
-            // Deactivate function
-            deActivate();
-            // Re - enable all other buttons
-            lineButton.setDisable(false);
-            plotButton.setDisable(false);
-            rectangleButton.setDisable(false);
-            polygonButton.setDisable(false);
+            deActivateDrawing();
+            EnableButtons enableButtons = new EnableButtons(ellipseButton,lineButton,plotButton,rectangleButton,polygonButton);
         }
     }
 
@@ -246,31 +174,13 @@ public class Controller implements Initializable {
      * POLYGON function.
      */
     public void handlePolygonButton(ActionEvent event) {
-
-        Polygon polygon = new Polygon();
-
         if (polygonButton.isSelected()){
-
-            // Disable other buttons
-            lineButton.setDisable(true);
-            plotButton.setDisable(true);
-            rectangleButton.setDisable(true);
-            ellipseButton.setDisable(true);
-
+            DisableButtons disableButtons = new DisableButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);
             DrawPolygon newPolygon = new DrawPolygon(canvas,colorpicker);
-
         } else {
-            // Deactivate function
-            deActivate();
-
-            // Restore buttons
-            lineButton.setDisable(false);
-            plotButton.setDisable(false);
-            rectangleButton.setDisable(false);
-            ellipseButton.setDisable(false);
-            fillButton.setDisable(false);
+            deActivateDrawing();
+            EnableButtons enableButtons = new EnableButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);
         }
-
     }
 
     /**
@@ -511,8 +421,7 @@ public class Controller implements Initializable {
             String filename = new File(save_path.toString()).getName();
         }
     }
-
-
+    
     /**
      * Closes the program from File -> Close when clicked.
      * @Author Waldo Fouche
