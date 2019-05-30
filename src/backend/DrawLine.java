@@ -44,7 +44,7 @@ public class DrawLine extends Tool {
 
 
             // If (X2) reaches beyond left border
-            if (line.getEndX()/canvas.getWidth() > 1) {
+            if (line.getEndX()/canvas.getWidth() < 0) {
                 endX = "0.0";
             }
 

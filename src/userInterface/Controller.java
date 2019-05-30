@@ -257,11 +257,8 @@ public class Controller implements Initializable {
         for(int i=1; i<array.length; i++){
             textToSet+=array[i-1] + "\n";
         }
-        System.out.println("The line cleared is: " + textToSet);
+
         console.setText(textToSet);
-
-
-
     }
     /**
      * @author Kevin Duong, n9934731

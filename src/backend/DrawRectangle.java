@@ -5,8 +5,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.shape.Rectangle;
 
-
-
 /**
  * RECTANGLE SHAPE FUNCTIONALITY
  *
@@ -18,12 +16,6 @@ import javafx.scene.shape.Rectangle;
 public class DrawRectangle extends Tool{
 
     private Rectangle rectangle;
-
-    private double from_x = 0;
-    private double from_y = 0;
-    private double to_x = 0;
-    private double to_y = 0;
-    private int line_no = 1;
 
     public DrawRectangle(Canvas canvas, ToggleButton fillButton, ColorPicker colorPicker) {
         super(canvas);
@@ -68,10 +60,8 @@ public class DrawRectangle extends Tool{
             // Square Ratio 1:1
             String startX = String.format("%.2f", rectangle.getX()/canvas.getWidth());
             String startY = String.format("%.2f", rectangle.getY()/canvas.getWidth());
-            String endX = String.format("%.2f", rectangle.getWidth()/canvas.getWidth());
-            String endY = String.format("%.2f",rectangle.getHeight()/canvas.getWidth());
-
-            //TODO: FIX Coordinate Boundaries
+            String endX = String.format("%.2f", (rectangle.getWidth()+rectangle.getX())/canvas.getWidth());
+            String endY = String.format("%.2f",(rectangle.getHeight()+rectangle.getY())/canvas.getWidth());
 
             // If END of width (X1) reaches beyond left border
             if (rectangle.getX()/canvas.getWidth() < 0) {
@@ -79,13 +69,18 @@ public class DrawRectangle extends Tool{
             }
 
             // If END of width (X2) reaches beyond right border
-            if (rectangle.getWidth()/canvas.getWidth() > 1) {
+            if ((rectangle.getWidth()+rectangle.getX())/canvas.getWidth() > 1) {
                 endX = "1.0";
             }
 
             // IF Y1 reaches above the top border
             if (rectangle.getY()/canvas.getWidth() < 0) {
                 startY = "0.0";
+            }
+
+            // IF Y2 reaches below the bottom border
+            if ((rectangle.getHeight()+rectangle.getY())/canvas.getWidth() > 1) {
+                endY = "1.0";
             }
 
             // Output RECTANGLE coordinates: X1,Y1,X2,Y2
