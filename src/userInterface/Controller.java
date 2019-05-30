@@ -13,7 +13,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -23,6 +22,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import backend.*;
 
 /**
  *
@@ -34,7 +35,6 @@ public class Controller implements Initializable {
 
 
     @FXML private TextArea console; // Console on GUI display
-    @FXML private PrintStream ps; // Streams to console on GUI
     @FXML private ColorPicker colorpicker; // Colour wheel
     private File save_path;
     private File currentFile;
@@ -49,11 +49,11 @@ public class Controller implements Initializable {
 
     @FXML Button undoButton;
 
-    Color fillColour = Color.WHITE;
-    Color strokeColour;
-
     @FXML
     BorderPane borderPane;
+
+    Color fillColour;
+    Color strokeColour;
 
     @FXML private Canvas canvas;
 
@@ -79,8 +79,6 @@ public class Controller implements Initializable {
      *
      * @Author Waldo Fouche, n9950095
      */
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initGraphics();
@@ -95,10 +93,19 @@ public class Controller implements Initializable {
             drawClicked();
         });
 
-        ps = new PrintStream(new Console(console)) ;
-        System.setOut(ps); // sets the console output to gui display
-        System.setErr(ps); // Sets the error output to gui display
+        ConsoleGUI gui = new ConsoleGUI(console);
     }
+
+    /**
+     * Deactivates the drawing function
+     */
+    public void deActivate() {
+        canvas.setOnMousePressed(null);
+        canvas.setOnMouseDragged(null);
+        canvas.setOnMouseReleased(null);
+        canvas.setOnMouseClicked(null);
+    }
+
 
     /**
      *
@@ -107,7 +114,6 @@ public class Controller implements Initializable {
     @FXML
     public void handleLineButton(ActionEvent ActionEvent) {
 
-        Line line = new Line();
 
         if (lineButton.isSelected()){
 
@@ -120,31 +126,11 @@ public class Controller implements Initializable {
             // LINE does not use FILL
             fillButton.setDisable(true);
 
-            // Canvas drawing
-            canvas.setOnMousePressed( e -> {
-                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
-                line.setStartX(e.getX());
-                line.setStartY(e.getY());
-            });
-
-            canvas.setOnMouseDragged(e->{
-
-            });
-
-            canvas.setOnMouseReleased(e->{
-                line.setEndX(e.getX());
-                line.setEndY(e.getY());
-                canvas.getGraphicsContext2D().strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
-
-                // Output LINE coordinates
-                System.out.println("LINE " + line.getStartX() +  " " + line.getStartY() +  " " + line.getEndX() +  " " + line.getEndY());
-            });
+            DrawLine newLine = new DrawLine(canvas,colorpicker);
 
         } else {
             // Deactivate function
-            canvas.setOnMousePressed(null);
-            canvas.setOnMouseDragged(null);
-            canvas.setOnMouseReleased(null);
+            deActivate();
 
             // Restore buttons
             plotButton.setDisable(false);
@@ -174,19 +160,12 @@ public class Controller implements Initializable {
             // PLOT does not use FILL
             fillButton.setDisable(true);
 
-            canvas.setOnMouseClicked( e -> {
-
-                canvas.getGraphicsContext2D().setFill(colorpicker.getValue());
-                canvas.getGraphicsContext2D().fillRoundRect(e.getX(),e.getY(),5,5,5,5);
-
-                // PLOT Output
-                System.out.println("PLOT " + e.getX() + " " + e.getY());
-            });
+            DrawPlot newPlot = new DrawPlot(canvas, colorpicker);
 
         } else {
 
             // Deactivate function
-            canvas.setOnMouseClicked(null);
+            deActivate();
 
             // Restore buttons
             lineButton.setDisable(false);
@@ -198,72 +177,43 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Creates Rectangle given the specified Coordinates
+     * Creates DrawRectangle given the specified Coordinates
      *
      * @Author Waldo Fouche, n9950095
      * @Author Kevin Duong
      */
     public void handleRectangleButton(ActionEvent actionEvent) {
 
-        Rectangle rectangle = new Rectangle();
+            if (rectangleButton.isSelected()) {
 
-        if (rectangleButton.isSelected()) {
+                // Disable all other buttons
+                lineButton.setDisable(true);
+                plotButton.setDisable(true);
+                ellipseButton.setDisable(true);
+                polygonButton.setDisable(true);
 
-            // Disable all other buttons
-            lineButton.setDisable(true);
-            plotButton.setDisable(true);
-            ellipseButton.setDisable(true);
-            polygonButton.setDisable(true);
 
-            canvas.setOnMousePressed(e -> {
-                canvas.getGraphicsContext2D().setStroke(strokeColour);
-                if (fillButton.isSelected()) {
+                DrawRectangle newRectangle = new DrawRectangle(canvas,fillButton,colorpicker);
 
-                    canvas.getGraphicsContext2D().setFill(fillColour);
-                }
-                rectangle.setX(e.getX());
-                rectangle.setY(e.getY());
-            });
 
-            canvas.setOnMouseDragged(e -> {
-                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
-            });
 
-            canvas.setOnMouseReleased(e -> {
-                rectangle.setWidth(Math.abs((e.getX() - rectangle.getX())));
-                rectangle.setHeight(Math.abs((e.getY() - rectangle.getY())));
 
-                if (rectangle.getX() > e.getX()) {
-                    rectangle.setX(e.getX());
-                }
 
-                if (rectangle.getY() > e.getY()) {
-                    rectangle.setY(e.getY());
-                }
+            } else {
 
-                if (fillButton.isSelected()){
-                    canvas.getGraphicsContext2D().fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight()); // Creates filled in shape
-                    canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight()); // Creates outline of shape
-                } else {
-                    canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-                }
+                // Deactivate function
+                deActivate();
 
-                // Output RECTANGLE coordinates: X1,Y1,X2,Y2
-                System.out.println("RECTANGLE " + rectangle.getX() + " " + rectangle.getY() + " " + rectangle.getWidth() + " " + rectangle.getHeight());
-            });
-        } else {
+                // Re - enable all other buttons
+                lineButton.setDisable(false);
+                plotButton.setDisable(false);
+                ellipseButton.setDisable(false);
+                polygonButton.setDisable(false);
+            }
 
-            // Deactivate function
-            canvas.setOnMousePressed(null);
-            canvas.setOnMouseDragged(null);
-            canvas.setOnMouseReleased(null);
 
-            // Re - enable all other buttons
-            lineButton.setDisable(false);
-            plotButton.setDisable(false);
-            ellipseButton.setDisable(false);
-            polygonButton.setDisable(false);
-        }
+
+
     }
 
     /**
@@ -271,9 +221,6 @@ public class Controller implements Initializable {
      * ELLIPSE function.
      */
     public void handleEllipseButton(ActionEvent event) {
-
-        Ellipse ellipse = new Ellipse();
-
         if (ellipseButton.isSelected()) {
 
             // Disable all other buttons
@@ -282,49 +229,10 @@ public class Controller implements Initializable {
             rectangleButton.setDisable(true);
             polygonButton.setDisable(true);
 
-            canvas.setOnMousePressed(e -> {
-                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
-                if (fillButton.isSelected()) {
-
-                    canvas.getGraphicsContext2D().setFill(fillColour);
-                }
-                ellipse.setCenterX(e.getX());
-                ellipse.setCenterY(e.getY());
-            });
-
-            canvas.setOnMouseDragged(e -> {
-                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
-            });
-
-            canvas.setOnMouseReleased(e -> {
-
-                ellipse.setRadiusX(Math.abs(e.getX() - ellipse.getCenterX()));
-                ellipse.setRadiusY(Math.abs(e.getY() - ellipse.getCenterY()));
-
-                if(ellipse.getCenterX() > e.getX()) {
-                    ellipse.setCenterX(e.getX());
-                }
-                if(ellipse.getCenterY() > e.getY()) {
-                    ellipse.setCenterY(e.getY());
-                }
-
-                if (fillButton.isSelected()) {
-                    canvas.getGraphicsContext2D().fillOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
-                    canvas.getGraphicsContext2D().strokeOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
-                } else {
-                    canvas.getGraphicsContext2D().strokeOval(ellipse.getCenterX(), ellipse.getCenterY(), ellipse.getRadiusX(), ellipse.getRadiusY());
-                }
-
-                // Output ELLIPSE coordinates: X1,Y1,X2,Y2
-                System.out.println("ELLIPSE " + ellipse.getCenterX() + " " + ellipse.getCenterY() + " " + ellipse.getRadiusX() + " " + ellipse.getRadiusY());
-            });
+            DrawEllipse newEllipse = new DrawEllipse(canvas,fillButton,colorpicker);
         } else {
-
             // Deactivate function
-            canvas.setOnMousePressed(null);
-            canvas.setOnMouseDragged(null);
-            canvas.setOnMouseReleased(null);
-
+            deActivate();
             // Re - enable all other buttons
             lineButton.setDisable(false);
             plotButton.setDisable(false);
@@ -349,27 +257,11 @@ public class Controller implements Initializable {
             rectangleButton.setDisable(true);
             ellipseButton.setDisable(true);
 
-            // Canvas drawing
-            canvas.setOnMousePressed( e -> {
-                canvas.getGraphicsContext2D().setStroke(colorpicker.getValue());
-
-            });
-
-            canvas.setOnMouseDragged(e->{
-                canvas.getGraphicsContext2D().lineTo(e.getX(), e.getY());
-                //TODO: Show realtime line drag when making line
-            });
-
-            canvas.setOnMouseReleased(e->{
-                // Output POLYGON coordinates
-                System.out.println("POLYGON ");
-            });
+            DrawPolygon newPolygon = new DrawPolygon(canvas,colorpicker);
 
         } else {
             // Deactivate function
-            canvas.setOnMousePressed(null);
-            canvas.setOnMouseDragged(null);
-            canvas.setOnMouseReleased(null);
+            deActivate();
 
             // Restore buttons
             lineButton.setDisable(false);
@@ -427,6 +319,8 @@ public class Controller implements Initializable {
             lineButton.setDisable(true);
             plotButton.setDisable(true);
 
+
+
         } else {
             // Reopen buttons
             lineButton.setDisable(false);
@@ -449,29 +343,6 @@ public class Controller implements Initializable {
         }
         console.setText(textToSet);
     }
-
-    /**
-     * Streams the text being sent from the console to the GUI console display
-     *
-     * @author Waldo Fouche, n9950095
-     **/
-    public class Console extends OutputStream {
-        private TextArea console;
-
-        public Console(TextArea console) {
-            this.console = console;
-        }
-
-        public void appendText(String valueOf) {
-            Platform.runLater(() -> console.appendText(valueOf));
-        }
-
-        public void write(int b) throws IOException {
-            appendText(String.valueOf((char)b));
-        }
-    }
-
-
     /**
      * @author Kevin Duong, n9934731
      * clickFileNew - Multi-image support. When creating new image, it loads a new image in a separate window
@@ -574,7 +445,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * @author Kevin Duong, n9934731
+     * @author Kevin Duong, n9934731 Waldo Fouche
      * File is saved, by updating the image code to the .vec file.
      * @param actionEvent
      */
