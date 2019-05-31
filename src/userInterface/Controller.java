@@ -289,73 +289,24 @@ public class Controller implements Initializable {
      */
     public void handleUndoButton(ActionEvent event) {
 
-        // TODO: Problem #1 - if a shape is overlapped and the undo button is pressed, other shapes may get some sections of their shape removed
-        // TODO: Problem #2 - coordinates are not accurate enough for the undo to erase a shape. I had to restore the whole value just to get the right coordinates for plot. There should be a to restore the shape after partially being cleared
+        // TODO: Problem #1: You have to click twice to undo at first? no idea why but must be fixed
 
         // TODO: Implement CTRL + Z
 
         String array[] = console.getText().split("\n");
         String textToSet = "";
         int history;
-        for(history = 1; history <array.length; history++){
-            textToSet+=array[history - 1] + "\n";
+        for(history = 1; history <array.length; history++) {
+            textToSet += array[history-1] + "\n";
         }
 
-        //TODO: Find a way to clear LINE
-        if (array[history - 1].contains("LINE")) {
-            String[] coordinates = array[history - 1].split("\\s+");
+        if(array[history-1] != null) {
+            canvas.getGraphicsContext2D().clearRect(0,0,canvas.getWidth(),canvas.getHeight());
 
-            Double x1 = Double.parseDouble(coordinates[1]);
-            Double y1 = Double.parseDouble(coordinates[2]);
-            Double x2 = Double.parseDouble(coordinates[3]);
-            Double y2 = Double.parseDouble(coordinates[4]);
-
-            canvas.getGraphicsContext2D().setStroke(Color.WHITE);
-            canvas.getGraphicsContext2D().strokeLine(x1*canvas.getWidth(), y1*canvas.getWidth(), x2*canvas.getWidth(), y2*canvas.getWidth());
-
-            console.setText(textToSet);
-        }
-
-        if(array[history - 1].contains("PLOT")) {
-            String[] coordinates = array[history - 1].split("\\s+");
-
-            Double x1 = Double.parseDouble(coordinates[1]);
-            Double y1 = Double.parseDouble(coordinates[2]);
-
-            canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(),y1*canvas.getWidth(),5,5);
-
-            console.setText(textToSet);
-        }
-
-        if (array[history - 1].contains("RECTANGLE") || array[history - 1].contains("ELLIPSE")) {
-            String[] coordinates = array[history - 1].split("\\s+");
-
-            Double x1 = Double.parseDouble(coordinates[1]);
-            Double y1 = Double.parseDouble(coordinates[2]);
-            Double x2 = Double.parseDouble(coordinates[3]);
-            Double y2 = Double.parseDouble(coordinates[4]);
-
-            canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(),y1*canvas.getWidth(),(x2-x1)*canvas.getWidth()+ 0.1,(y2-y1)*canvas.getWidth()+ 0.1);
-
-            console.setText(textToSet);
-        }
-
-        if (array[history - 1].contains("POLYGON")) {
-            String[] coordinates = array[history - 1].split("\\s+");
-
-            // X Values
-            for (int i =0; i < coordinates.length; i+=2){
-                Double x = Double.parseDouble(coordinates[i]);
+            for (int i = 0; i < array.length; i++){
+                Draw draw = new Draw(canvas, array[i]);
+                console.setText(textToSet);
             }
-
-            // Y Values
-            for (int i =0; i < coordinates.length; i+=3){
-                Double y = Double.parseDouble(coordinates[i]);
-            }
-
-            //canvas.getGraphicsContext2D().strokePolygon(x*canvas.getWidth(),y*canvas.getWidth(),(x2-x1)*canvas.getWidth()+ 0.1,(y2-y1)*canvas.getWidth()+ 0.1);
-
-            console.setText(textToSet);
         }
     }
 
