@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,7 +87,7 @@ public class Controller implements Initializable {
      */
     public void newWindow (String filename) {
         if (filename == null) {
-            filename = "untitled";
+            filename = "Untitled";
         }
         try {
             // Launch new window
@@ -252,13 +253,25 @@ public class Controller implements Initializable {
      */
 
     public void handleUndoButton(ActionEvent event) {
+
         String array[] = console.getText().split("\n");
         String textToSet = "";
-        for(int i=1; i<array.length; i++){
-            textToSet+=array[i-1] + "\n";
+        int history;
+        for(history = 1; history <array.length; history++){
+            textToSet+=array[history - 1] + "\n";
         }
 
-        console.setText(textToSet);
+        //TODO: Clear the shape located for LINE, RECTANGLE and POLYGON
+        if (array[history - 1].contains("PLOT")) {
+            String[] coordinates = array[history - 1].split("\\s+");
+
+            Double x1 = Double.parseDouble(coordinates[1]);
+            Double y1 = Double.parseDouble(coordinates[2]);
+
+            canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(), y1*canvas.getWidth(), x1*canvas.getWidth(), y1*canvas.getWidth());
+
+            console.setText(textToSet);
+        }
     }
     /**
      * @author Kevin Duong, n9934731

@@ -64,25 +64,25 @@ public class DrawEllipse extends Tool {
 
             //TODO: FIX ELLIPSE BOUNDARIES
 
-//            // If X1 reaches beyond left border
-//            if (ellipse.getCenterX()<0) {
-//                centreX = "0.0";
-//            }
-//
-//            // If X2 reaches beyond right border
-//            if ((ellipse.getRadiusX()+ellipse.getCenterX()) > 1) {
-//                radiusX = "1.0";
-//            }
-//
-//            // If Y1 reaches beyond left border
-//            if (ellipse.getCenterY()<0) {
-//                centreY = "0.0";
-//            }
-//
-//            // If Y2 reaches beyond right border
-//            if ((ellipse.getRadiusY()+ellipse.getCenterY()) > 1) {
-//                radiusY = "1.0";
-//            }
+            // If X1 reaches beyond left border
+            if (ellipse.getCenterX() <0 ) {
+                centreX = "0.0";
+            }
+
+            // If Y1 reaches beyond top border
+            if (ellipse.getCenterY() < 0) {
+                centreY = "0.0";
+            }
+
+            // If X2 reaches beyond right border
+            if ((ellipse.getRadiusX()+ellipse.getCenterX())/canvas.getWidth() > 1) {
+                radiusX = "1.0";
+            }
+
+            // If Y2 reaches beyond bottom border
+            if ((ellipse.getRadiusY()+ellipse.getCenterY())/canvas.getWidth() > 1) {
+                radiusY = "1.0";
+            }
 
             // Output ELLIPSE coordinates: X1,Y1,X2,Y2
             System.out.println("ELLIPSE " + centreX + " " + centreY + " " + radiusX + " " +radiusY);
