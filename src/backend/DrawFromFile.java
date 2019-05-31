@@ -5,8 +5,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -22,8 +20,7 @@ import java.util.regex.Pattern;
 public class DrawFromFile {
     private ArrayList<String> line;
     public DrawFromFile(Canvas canvas, File file) {
-        canvas.getGraphicsContext2D().setFill(Color.TRANSPARENT); // removes any fill command if selected
-        canvas.getGraphicsContext2D().setStroke(Color.BLACK); // Resets Pen Tool to Black if currently another colour
+
         try {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
