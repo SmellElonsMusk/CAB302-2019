@@ -358,7 +358,7 @@ public class Controller implements Initializable {
         fc.Open();
         if (fc.getFile() != null) {
             String filename = fc.getFileName();
-            newWindow(filename);// TODO: Fix drawing open in new window not on previous
+            //newWindow(filename);// TODO: Fix drawing open in new window not on previous
             fileReader read = new fileReader(fc.getFile());
 
             //TODO: Attempting to load image based on code
