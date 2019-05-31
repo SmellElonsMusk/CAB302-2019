@@ -26,6 +26,7 @@ public class DrawPlot extends Tool {
 //            String y1 = String.format("%.2f", e.getY()/canvas.getWidth());
 
             // Output PLOT coordinates: X,Y
+            //System.out.println("PLOT " + x1 + " " + y1);
             System.out.println("PLOT " + e.getX()/canvas.getWidth() + " " + e.getY()/canvas.getWidth());
         });
     }

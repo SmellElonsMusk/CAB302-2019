@@ -80,7 +80,7 @@
       </VBox>
    </left>
    <bottom>
-      <AnchorPane prefHeight="29.0" prefWidth="900.0" style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="48.0" prefWidth="950.0" style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
          <children>
             <Label style="-fx-font-size: 30;" text="-" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="10.0">
                <font>

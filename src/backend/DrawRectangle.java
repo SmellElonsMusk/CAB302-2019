@@ -57,34 +57,35 @@ public class DrawRectangle extends Tool{
                 canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
             }
 
-            // Square Ratio 1:1
-            String startX = String.format("%.2f", rectangle.getX()/canvas.getWidth());
-            String startY = String.format("%.2f", rectangle.getY()/canvas.getWidth());
-            String endX = String.format("%.2f", (rectangle.getWidth()+rectangle.getX())/canvas.getWidth());
-            String endY = String.format("%.2f",(rectangle.getHeight()+rectangle.getY())/canvas.getWidth());
+//            // Square Ratio 1:1
+//            String startX = String.format("%.2f", rectangle.getX()/canvas.getWidth());
+//            String startY = String.format("%.2f", rectangle.getY()/canvas.getWidth());
+//            String endX = String.format("%.2f", (rectangle.getWidth()+rectangle.getX())/canvas.getWidth());
+//            String endY = String.format("%.2f",(rectangle.getHeight()+rectangle.getY())/canvas.getWidth());
 
-            // If END of width (X1) reaches beyond left border
-            if (rectangle.getX()/canvas.getWidth() < 0) {
-                startX = "0.0";
-            }
-
-            // If END of width (X2) reaches beyond right border
-            if ((rectangle.getWidth()+rectangle.getX())/canvas.getWidth() > 1) {
-                endX = "1.0";
-            }
-
-            // IF Y1 reaches above the top border
-            if (rectangle.getY()/canvas.getWidth() < 0) {
-                startY = "0.0";
-            }
-
-            // IF Y2 reaches below the bottom border
-            if ((rectangle.getHeight()+rectangle.getY())/canvas.getWidth() > 1) {
-                endY = "1.0";
-            }
+//            // If END of width (X1) reaches beyond left border
+//            if (rectangle.getX()/canvas.getWidth() < 0) {
+//                startX = "0.0";
+//            }
+//
+//            // If END of width (X2) reaches beyond right border
+//            if ((rectangle.getWidth()+rectangle.getX())/canvas.getWidth() > 1) {
+//                endX = "1.0";
+//            }
+//
+//            // IF Y1 reaches above the top border
+//            if (rectangle.getY()/canvas.getWidth() < 0) {
+//                startY = "0.0";
+//            }
+//
+//            // IF Y2 reaches below the bottom border
+//            if ((rectangle.getHeight()+rectangle.getY())/canvas.getWidth() > 1) {
+//                endY = "1.0";
+//            }
 
             // Output RECTANGLE coordinates: X1,Y1,X2,Y2
-            System.out.println("RECTANGLE " + startX + " " + startY + " " + endX + " " + endY);
+            //System.out.println("RECTANGLE " + startX + " " + startY + " " + endX + " " + endY);
+            System.out.println("RECTANGLE " + rectangle.getX()/canvas.getWidth() + " " + rectangle.getY()/canvas.getWidth() + " " + (rectangle.getWidth()+rectangle.getX())/canvas.getWidth() + " " + (rectangle.getHeight()+rectangle.getY())/canvas.getWidth());
         });
     }
 }

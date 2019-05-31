@@ -257,6 +257,8 @@ public class Controller implements Initializable {
         // TODO: Problem #1 - if a shape is overlapped and the undo button is pressed, other shapes may get some sections of their shape removed
         // TODO: Problem #2 - coordinates are not accurate enough for the undo to erase a shape. I had to restore the whole value just to get the right coordinates for plot. There should be a to restore the shape after partially being cleared
 
+        // TODO: Implement CTRL + Z
+
         String array[] = console.getText().split("\n");
         String textToSet = "";
         int history;
@@ -264,7 +266,7 @@ public class Controller implements Initializable {
             textToSet+=array[history - 1] + "\n";
         }
 
-        //TODO: Clear the shape located for LINE, RECTANGLE and POLYGON
+        //TODO: Find a way to clear LINE
         if (array[history - 1].contains("LINE")) {
             String[] coordinates = array[history - 1].split("\\s+");
 
@@ -273,17 +275,45 @@ public class Controller implements Initializable {
             Double x2 = Double.parseDouble(coordinates[3]);
             Double y2 = Double.parseDouble(coordinates[4]);
 
+            canvas.getGraphicsContext2D().setStroke(Color.WHITE);
             canvas.getGraphicsContext2D().strokeLine(x1*canvas.getWidth(), y1*canvas.getWidth(), x2*canvas.getWidth(), y2*canvas.getWidth());
 
             console.setText(textToSet);
+        }
 
-        } else if (array[history - 1].contains("PLOT")) {
+        if(array[history - 1].contains("PLOT")) {
             String[] coordinates = array[history - 1].split("\\s+");
 
             Double x1 = Double.parseDouble(coordinates[1]);
             Double y1 = Double.parseDouble(coordinates[2]);
 
             canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(),y1*canvas.getWidth(),5,5);
+
+            console.setText(textToSet);
+        }
+
+        if (array[history - 1].contains("RECTANGLE")) {
+            String[] coordinates = array[history - 1].split("\\s+");
+
+            Double x1 = Double.parseDouble(coordinates[1]);
+            Double y1 = Double.parseDouble(coordinates[2]);
+            Double x2 = Double.parseDouble(coordinates[3]);
+            Double y2 = Double.parseDouble(coordinates[4]);
+
+            canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(),y1*canvas.getWidth(),(x2-x1)*canvas.getWidth()+ 0.1,(y2-y1)*canvas.getWidth()+ 0.1);
+
+            console.setText(textToSet);
+        }
+
+        if (array[history - 1].contains("ELLIPSE")) {
+            String[] coordinates = array[history - 1].split("\\s+");
+
+            Double x1 = Double.parseDouble(coordinates[1]);
+            Double y1 = Double.parseDouble(coordinates[2]);
+            Double x2 = Double.parseDouble(coordinates[3]);
+            Double y2 = Double.parseDouble(coordinates[4]);
+
+            canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(),y1*canvas.getWidth(),(x2-x1)*canvas.getWidth()+ 0.1,(y2-y1)*canvas.getWidth()+ 0.1);
 
             console.setText(textToSet);
         }
@@ -311,7 +341,7 @@ public class Controller implements Initializable {
         fc.Open();
         if (fc.getFile() != null) {
             String filename = fc.getFileName();
-            //newWindow(filename); TODO: Fix drawing open in new window not on previous
+            newWindow(filename);// TODO: Fix drawing open in new window not on previous
             fileReader read = new fileReader(fc.getFile());
 
             //TODO: Attempting to load image based on code

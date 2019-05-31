@@ -64,6 +64,7 @@ public class DrawLine extends Tool {
 //            }
 
             // Output LINE coordinates X1,Y1,X2,Y2
+            //System.out.println("LINE " + startX + " " + startY +  " " + endX +  " " + endY);
             System.out.println("LINE " + line.getStartX()/canvas.getWidth() + " " + line.getStartY()/canvas.getWidth() +  " " + line.getEndX()/canvas.getWidth() +  " " + line.getEndY()/canvas.getWidth());
         });
     }

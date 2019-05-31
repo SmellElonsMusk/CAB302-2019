@@ -6,7 +6,7 @@ import javafx.scene.control.ToggleButton;
 
 /**
  * TOOL FUNCTIONALITY
- * @Author Waldo Fouche, n9934731
+ * @Author Waldo Fouche,
  */
 
 public class Tool {

@@ -57,35 +57,36 @@ public class DrawEllipse extends Tool {
             }
 
             // Square Ratio 1:1
-            String centreX = String.format("%.2f", ellipse.getCenterX()/canvas.getWidth());
-            String centreY = String.format("%.2f", ellipse.getCenterY()/canvas.getWidth());
-            String radiusX = String.format("%.2f", (ellipse.getRadiusX()+ellipse.getCenterX())/canvas.getWidth());
-            String radiusY = String.format("%.2f", (ellipse.getRadiusY()+ellipse.getCenterY())/canvas.getWidth());
+//            String centreX = String.format("%.2f", ellipse.getCenterX()/canvas.getWidth());
+//            String centreY = String.format("%.2f", ellipse.getCenterY()/canvas.getWidth());
+//            String radiusX = String.format("%.2f", (ellipse.getRadiusX()+ellipse.getCenterX())/canvas.getWidth());
+//            String radiusY = String.format("%.2f", (ellipse.getRadiusY()+ellipse.getCenterY())/canvas.getWidth());
 
-            //TODO: FIX ELLIPSE BOUNDARIES
-
-            // If X1 reaches beyond left border
-            if (ellipse.getCenterX() <0 ) {
-                centreX = "0.0";
-            }
-
-            // If Y1 reaches beyond top border
-            if (ellipse.getCenterY() < 0) {
-                centreY = "0.0";
-            }
-
-            // If X2 reaches beyond right border
-            if ((ellipse.getRadiusX()+ellipse.getCenterX())/canvas.getWidth() > 1) {
-                radiusX = "1.0";
-            }
-
-            // If Y2 reaches beyond bottom border
-            if ((ellipse.getRadiusY()+ellipse.getCenterY())/canvas.getWidth() > 1) {
-                radiusY = "1.0";
-            }
+//            //TODO: FIX ELLIPSE BOUNDARIES
+//
+//            // If X1 reaches beyond left border
+//            if (ellipse.getCenterX() <0 ) {
+//                centreX = "0.0";
+//            }
+//
+//            // If Y1 reaches beyond top border
+//            if (ellipse.getCenterY() < 0) {
+//                centreY = "0.0";
+//            }
+//
+//            // If X2 reaches beyond right border
+//            if ((ellipse.getRadiusX()+ellipse.getCenterX())/canvas.getWidth() > 1) {
+//                radiusX = "1.0";
+//            }
+//
+//            // If Y2 reaches beyond bottom border
+//            if ((ellipse.getRadiusY()+ellipse.getCenterY())/canvas.getWidth() > 1) {
+//                radiusY = "1.0";
+//            }
 
             // Output ELLIPSE coordinates: X1,Y1,X2,Y2
-            System.out.println("ELLIPSE " + centreX + " " + centreY + " " + radiusX + " " +radiusY);
+            System.out.println("ELLIPSE " + ellipse.getCenterX()/canvas.getWidth() + " " + ellipse.getCenterY()/canvas.getWidth() + " " + (ellipse.getRadiusX() + ellipse.getCenterX()) /   canvas.getWidth() + " " + (ellipse.getRadiusY() + ellipse.getCenterY()) / canvas.getWidth());
+            //System.out.println("ELLIPSE " + centreX + " " + centreY + " " + radiusX + " " +radiusY);
         });
     }
 }
