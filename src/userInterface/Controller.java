@@ -362,7 +362,7 @@ public class Controller implements Initializable {
             fileReader read = new fileReader(fc.getFile());
 
             //TODO: Attempting to load image based on code
-            DrawFromFile newDraw = new DrawFromFile (canvas,fc.getFile(),strokeColour,fillColour);
+            DrawFromFile newDraw = new DrawFromFile (canvas,fc.getFile());
 
         }
 

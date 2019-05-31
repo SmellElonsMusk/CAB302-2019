@@ -57,10 +57,10 @@ public class DrawEllipse extends Tool {
             }
 
             // Square Ratio 1:1
-            String centreX = String.format("%.2f", ellipse.getCenterX()/canvas.getWidth());
-            String centreY = String.format("%.2f", ellipse.getCenterY()/canvas.getWidth());
-            String radiusX = String.format("%.2f", (ellipse.getRadiusX()+ellipse.getCenterX())/canvas.getWidth());
-            String radiusY = String.format("%.2f", (ellipse.getRadiusY()+ellipse.getCenterY())/canvas.getWidth());
+            String centreX = String.format("%.6f", ellipse.getCenterX()/canvas.getWidth());
+            String centreY = String.format("%.6f", ellipse.getCenterY()/canvas.getWidth());
+            String radiusX = String.format("%.6f", (ellipse.getRadiusX()+ellipse.getCenterX())/canvas.getWidth());
+            String radiusY = String.format("%.6f", (ellipse.getRadiusY()+ellipse.getCenterY())/canvas.getWidth());
 
             //TODO: FIX ELLIPSE BOUNDARIES
 
@@ -85,7 +85,6 @@ public class DrawEllipse extends Tool {
             }
 
             // Output ELLIPSE coordinates: X1,Y1,X2,Y2
-            //System.out.println("ELLIPSE " + ellipse.getCenterX()/canvas.getWidth() + " " + ellipse.getCenterY()/canvas.getWidth() + " " + (ellipse.getRadiusX() + ellipse.getCenterX()) /   canvas.getWidth() + " " + (ellipse.getRadiusY() + ellipse.getCenterY()) / canvas.getWidth());
             System.out.println("ELLIPSE " + centreX + " " + centreY + " " + radiusX + " " +radiusY);
         });
     }

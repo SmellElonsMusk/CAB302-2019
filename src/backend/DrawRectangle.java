@@ -19,12 +19,8 @@ public class DrawRectangle extends Tool{
 
     private Rectangle rectangle;
 
-//    private List<Double> coordinates;
-
     public DrawRectangle(Canvas canvas, ToggleButton fillButton, ColorPicker colorPicker) {
         super(canvas);
-
-
 
         this.rectangle = new Rectangle();
 
@@ -63,18 +59,11 @@ public class DrawRectangle extends Tool{
                 canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
             }
 
-//            coordinates.add(rectangle.getX());
-//            coordinates.add(rectangle.getY());
-//            coordinates.add(rectangle.getWidth());
-//            coordinates.add(rectangle.getHeight());
-
-            //coordinates = e.getX();
-
             // Square Ratio 1:1
-            String startX = String.format("%.2f", rectangle.getX()/canvas.getWidth());
-            String startY = String.format("%.2f", rectangle.getY()/canvas.getWidth());
-            String endX = String.format("%.2f", (rectangle.getWidth()+rectangle.getX())/canvas.getWidth());
-            String endY = String.format("%.2f",(rectangle.getHeight()+rectangle.getY())/canvas.getWidth());
+            String startX = String.format("%.6f", rectangle.getX()/canvas.getWidth());
+            String startY = String.format("%.6f", rectangle.getY()/canvas.getWidth());
+            String endX = String.format("%.6f", (rectangle.getWidth()+rectangle.getX())/canvas.getWidth());
+            String endY = String.format("%.6f",(rectangle.getHeight()+rectangle.getY())/canvas.getWidth());
 
             // If END of width (X1) reaches beyond left border
             if (rectangle.getX()/canvas.getWidth() < 0) {
@@ -98,12 +87,6 @@ public class DrawRectangle extends Tool{
 
             // Output RECTANGLE coordinates: X1,Y1,X2,Y2
             System.out.println("RECTANGLE " + startX + " " + startY + " " + endX + " " + endY);
-            //System.out.println("RECTANGLE " + rectangle.getX()/canvas.getWidth() + " " + rectangle.getY()/canvas.getWidth() + " " + (rectangle.getWidth()+rectangle.getX())/canvas.getWidth() + " " + (rectangle.getHeight()+rectangle.getY())/canvas.getWidth());
         });
     }
-
-//    public List<Double> returnCoords () {
-//        return this.coordinates;
-//    }
-
 }

@@ -37,10 +37,10 @@ public class DrawLine extends Tool {
             canvas.getGraphicsContext2D().strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
 
             // Square Ratio 1:1
-            String startX = String.format("%.2f", line.getStartX()/canvas.getWidth());
-            String startY = String.format("%.2f", line.getStartY()/canvas.getWidth());
-            String endX = String.format("%.2f", line.getEndX()/canvas.getWidth());
-            String endY = String.format("%.2f",line.getEndY()/canvas.getWidth());
+            String startX = String.format("%.6f", line.getStartX()/canvas.getWidth());
+            String startY = String.format("%.6f", line.getStartY()/canvas.getWidth());
+            String endX = String.format("%.6f", line.getEndX()/canvas.getWidth());
+            String endY = String.format("%.6f",line.getEndY()/canvas.getWidth());
 
 
             // If (X2) reaches beyond left border
@@ -65,7 +65,6 @@ public class DrawLine extends Tool {
 
             //Output LINE coordinates X1,Y1,X2,Y2
             System.out.println("LINE " + startX + " " + startY +  " " + endX +  " " + endY);
-            //System.out.println("LINE " + line.getStartX()/canvas.getWidth() + " " + line.getStartY()/canvas.getWidth() +  " " + line.getEndX()/canvas.getWidth() +  " " + line.getEndY()/canvas.getWidth());
         });
     }
 }
