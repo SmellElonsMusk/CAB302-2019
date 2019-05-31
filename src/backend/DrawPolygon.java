@@ -4,6 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 import java.util.ArrayList;
@@ -88,6 +89,8 @@ public class DrawPolygon extends Tool {
                 canvas.getGraphicsContext2D().fillPolygon(dx,dy,count);
                 canvas.getGraphicsContext2D().strokePolygon(dx,dy,count);
             } else {
+                canvas.getGraphicsContext2D().setFill(Color.valueOf("#f4f4f4"));
+                canvas.getGraphicsContext2D().fillPolygon(dx,dy,count);
                 canvas.getGraphicsContext2D().strokePolygon(dx,dy,count);
             }
 
