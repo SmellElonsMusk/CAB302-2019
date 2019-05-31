@@ -18,7 +18,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.Controller">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.Controller">
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: linen;" BorderPane.alignment="CENTER">
          <children>
@@ -132,7 +132,7 @@
       </VBox>
    </right>
    <center>
-      <Canvas fx:id="canvas" height="580.0" width="600.0" BorderPane.alignment="CENTER">
+      <Canvas fx:id="canvas" height="600.0" width="600.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>

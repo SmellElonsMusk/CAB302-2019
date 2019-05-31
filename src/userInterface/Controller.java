@@ -95,7 +95,7 @@ public class Controller implements Initializable {
             fxmlLoader.setLocation(getClass().getResource("ui_layout.fxml"));
 
             // Implement stylesheet
-            Scene scene = new Scene(fxmlLoader.load(), 950, 680);
+            Scene scene = new Scene(fxmlLoader.load(), 950, 700);
             scene.getStylesheets().add("userInterface/stylesheet.css");
             scene.getStylesheets().add("userInterface/menuBarStylesheet.css");
 
@@ -315,7 +315,7 @@ public class Controller implements Initializable {
             fileReader read = new fileReader(fc.getFile());
 
             //TODO: Attempting to load image based on code
-            DrawFromFile newDraw = new DrawFromFile (canvas,fc.getFile());
+            DrawFromFile newDraw = new DrawFromFile (canvas,fc.getFile(),strokeColour,fillColour);
 
         }
 
