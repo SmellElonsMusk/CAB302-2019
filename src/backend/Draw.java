@@ -25,7 +25,6 @@ public class Draw {
 
 
     public Draw (Canvas canvas, String str) {
-
             // Check for colour
             if (str.contains("FILL") ) {
                 hex = str.split("\\s+");
@@ -41,8 +40,8 @@ public class Draw {
 
             // If FILL is OFF
             if (str.contains("OFF")) {
-                hex[1] = "#000000"; // White
-                canvas.getGraphicsContext2D().setStroke(Color.valueOf(hex[1]));
+                //hex[1] = "#000000"; // White
+                //canvas.getGraphicsContext2D().setStroke(Color.valueOf(hex[1]));
                 canvas.getGraphicsContext2D().setFill(Color.TRANSPARENT); // removes fill
             }
 
@@ -97,8 +96,6 @@ public class Draw {
                 Double x2 = (myDoubles.get(2))*canvas.getWidth();
                 Double y2 = (myDoubles.get(3)*canvas.getWidth());
 
-
-
                 canvas.getGraphicsContext2D().fillRect(x1,y1,(x2-x1),(y2-y1));
                 canvas.getGraphicsContext2D().strokeRect(x1,y1,(x2-x1),(y2-y1));
 
@@ -119,9 +116,6 @@ public class Draw {
                 Double y1 = myDoubles.get(1) * canvas.getHeight();
                 Double x2 = myDoubles.get(2) * canvas.getWidth();
                 Double y2 = myDoubles.get(3) * canvas.getHeight();
-
-
-
 
                 canvas.getGraphicsContext2D().fillOval(x1,y1,x2-x1,y2-y1);
                 canvas.getGraphicsContext2D().strokeOval(x1,y1,x2-x1,y2-y1);
