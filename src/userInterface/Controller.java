@@ -206,7 +206,7 @@ public class Controller implements Initializable {
     public void handlePolygonButton(ActionEvent event) {
         if (polygonButton.isSelected()){
             DisableButtons disableButtons = new DisableButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);
-            DrawPolygon newPolygon = new DrawPolygon(canvas,colorpicker);
+            DrawPolygon newPolygon = new DrawPolygon(canvas,fillButton,colorpicker);
         } else {
             deActivateDrawing();
             ReEnableButtons reEnableButtons = new ReEnableButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);

@@ -101,7 +101,7 @@ public class DrawFromFile {
                         canvas.getGraphicsContext2D().strokeLine(x1,y1,x2,y2);
                     }
 
-                    System.out.println("I am a line");
+                    //System.out.println("I am a line");
 
                 } else if (str.contains("PLOT")) {
                   System.out.println("I am a plot");
@@ -162,10 +162,10 @@ public class DrawFromFile {
                     }
 
 
-                    System.out.println("I am an ellipse");
+                    //System.out.println("I am an ellipse");
 
                 } else if (str.contains("POLYGON")) {
-                    System.out.println("I am a poly");
+                    //System.out.println("I am a poly");
                 }
             }
             br.close();
