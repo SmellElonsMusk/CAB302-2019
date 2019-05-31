@@ -254,6 +254,9 @@ public class Controller implements Initializable {
 
     public void handleUndoButton(ActionEvent event) {
 
+        // TODO: Problem #1 - if a shape is overlapped and the undo button is pressed, other shapes may get some sections of their shape removed
+        // TODO: Problem #2 - coordinates are not accurate enough for the undo to erase a shape. I had to restore the whole value just to get the right coordinates for plot. There should be a to restore the shape after partially being cleared
+
         String array[] = console.getText().split("\n");
         String textToSet = "";
         int history;
@@ -262,13 +265,25 @@ public class Controller implements Initializable {
         }
 
         //TODO: Clear the shape located for LINE, RECTANGLE and POLYGON
-        if (array[history - 1].contains("PLOT")) {
+        if (array[history - 1].contains("LINE")) {
+            String[] coordinates = array[history - 1].split("\\s+");
+
+            Double x1 = Double.parseDouble(coordinates[1]);
+            Double y1 = Double.parseDouble(coordinates[2]);
+            Double x2 = Double.parseDouble(coordinates[3]);
+            Double y2 = Double.parseDouble(coordinates[4]);
+
+            canvas.getGraphicsContext2D().strokeLine(x1*canvas.getWidth(), y1*canvas.getWidth(), x2*canvas.getWidth(), y2*canvas.getWidth());
+
+            console.setText(textToSet);
+
+        } else if (array[history - 1].contains("PLOT")) {
             String[] coordinates = array[history - 1].split("\\s+");
 
             Double x1 = Double.parseDouble(coordinates[1]);
             Double y1 = Double.parseDouble(coordinates[2]);
 
-            canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(), y1*canvas.getWidth(), x1*canvas.getWidth(), y1*canvas.getWidth());
+            canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(),y1*canvas.getWidth(),5,5);
 
             console.setText(textToSet);
         }

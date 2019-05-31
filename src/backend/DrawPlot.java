@@ -19,14 +19,14 @@ public class DrawPlot extends Tool {
         canvas.setOnMouseClicked( e -> {
             canvas.getGraphicsContext2D().setFill(colorPicker.getValue());
             // TODO: Make PLOT a square to be drawable
-            canvas.getGraphicsContext2D().fillRect(5,5,5,5);
+            canvas.getGraphicsContext2D().fillRect(e.getX(),e.getY(),5,5);
 
             // Square Ratio 1:1
-            String x1 = String.format("%.2f", e.getX()/canvas.getWidth());
-            String y1 = String.format("%.2f", e.getY()/canvas.getWidth());
+//            String x1 = String.format("%.2f", e.getX()/canvas.getWidth());
+//            String y1 = String.format("%.2f", e.getY()/canvas.getWidth());
 
             // Output PLOT coordinates: X,Y
-            System.out.println("PLOT " + x1 + " " + y1);
+            System.out.println("PLOT " + e.getX()/canvas.getWidth() + " " + e.getY()/canvas.getWidth());
         });
     }
 }
