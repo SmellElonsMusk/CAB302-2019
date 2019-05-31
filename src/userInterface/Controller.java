@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +47,8 @@ public class Controller implements Initializable {
 
     Color fillColour;
     Color strokeColour;
+
+    //private List<Double> coordinates;
 
     // FILE MANAGEMENT
     private File openFile;
@@ -167,6 +170,15 @@ public class Controller implements Initializable {
         if (rectangleButton.isSelected()) {
             DisableButtons disableButtons = new DisableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
             DrawRectangle newRectangle = new DrawRectangle(canvas,fillButton,colorpicker);
+
+//            undoButton.setOnMouseClicked(e-> {
+//                this.coordinates = newRectangle.returnCoords();
+//                for (int i=0;  i< this.coordinates.size(); i++) {
+//                    System.out.println(this.coordinates.get(i));
+//                }
+//            });
+
+
         } else {
             deActivateDrawing();
             ReEnableButtons reEnableButtons = new ReEnableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
@@ -292,7 +304,7 @@ public class Controller implements Initializable {
             console.setText(textToSet);
         }
 
-        if (array[history - 1].contains("RECTANGLE")) {
+        if (array[history - 1].contains("RECTANGLE") || array[history - 1].contains("ELLIPSE")) {
             String[] coordinates = array[history - 1].split("\\s+");
 
             Double x1 = Double.parseDouble(coordinates[1]);
@@ -305,15 +317,20 @@ public class Controller implements Initializable {
             console.setText(textToSet);
         }
 
-        if (array[history - 1].contains("ELLIPSE")) {
+        if (array[history - 1].contains("POLYGON")) {
             String[] coordinates = array[history - 1].split("\\s+");
 
-            Double x1 = Double.parseDouble(coordinates[1]);
-            Double y1 = Double.parseDouble(coordinates[2]);
-            Double x2 = Double.parseDouble(coordinates[3]);
-            Double y2 = Double.parseDouble(coordinates[4]);
+            // X Values
+            for (int i =0; i < coordinates.length; i+=2){
+                Double x = Double.parseDouble(coordinates[i]);
+            }
 
-            canvas.getGraphicsContext2D().clearRect(x1*canvas.getWidth(),y1*canvas.getWidth(),(x2-x1)*canvas.getWidth()+ 0.1,(y2-y1)*canvas.getWidth()+ 0.1);
+            // Y Values
+            for (int i =0; i < coordinates.length; i+=3){
+                Double y = Double.parseDouble(coordinates[i]);
+            }
+
+            //canvas.getGraphicsContext2D().strokePolygon(x*canvas.getWidth(),y*canvas.getWidth(),(x2-x1)*canvas.getWidth()+ 0.1,(y2-y1)*canvas.getWidth()+ 0.1);
 
             console.setText(textToSet);
         }
