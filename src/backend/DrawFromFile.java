@@ -31,6 +31,8 @@ public class DrawFromFile {
     String regexDoubles = "[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?";
 
     public DrawFromFile(Canvas canvas, File file) {
+        canvas.getGraphicsContext2D().setFill(Color.TRANSPARENT); // removes any fill command if selected
+        canvas.getGraphicsContext2D().setStroke(Color.BLACK); // Resets Pen Tool to Black if currently another colour
         try {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
@@ -41,15 +43,27 @@ public class DrawFromFile {
                 this.line.add(str);
 
                 // Check for colour
-                if (str.contains("FILL") || str.contains("PEN")) {
+                if (str.contains("FILL") ) {
                     hex = str.split("\\s+");
+
+                    canvas.getGraphicsContext2D().setFill(Color.valueOf(hex[1]));
+
+                } else if (str.contains("PEN")) {
+                    hex = str.split("\\s+");
+
+                    canvas.getGraphicsContext2D().setFill(Color.TRANSPARENT); // removes fill
+                    canvas.getGraphicsContext2D().setStroke(Color.valueOf(hex[1]));
+
+
                 }
 
                 // TODO: Detect FILL OFF
                 // If FILL is OFF
                 if (str.contains("OFF")) {
-                    //hex[1] = "#000000";
-                }
+                    hex[1] = "#000000"; // White
+                    canvas.getGraphicsContext2D().setStroke(Color.valueOf(hex[1]));
+                    canvas.getGraphicsContext2D().setFill(Color.TRANSPARENT); // removes fill
+            }
 
                 // Check for drawing commands
                 if (str.contains("LINE") ) {
@@ -83,7 +97,7 @@ public class DrawFromFile {
                     Double x1 = myDoubles.get(0)*canvas.getWidth();
                     Double y1 = myDoubles.get(1)*canvas.getWidth();
 
-                    canvas.getGraphicsContext2D().setFill(Color.valueOf(hex[1]));
+
                     canvas.getGraphicsContext2D().fillRoundRect(x1,y1,1,1,1,1);
                   
                 } else if (str.contains("RECTANGLE")) {
@@ -102,8 +116,7 @@ public class DrawFromFile {
                     Double x2 = (myDoubles.get(2))*canvas.getWidth();
                     Double y2 = (myDoubles.get(3)*canvas.getWidth());
 
-                    canvas.getGraphicsContext2D().setFill(Color.valueOf(hex[1]));
-                    canvas.getGraphicsContext2D().setStroke(Color.valueOf(hex[1]));
+
 
                     canvas.getGraphicsContext2D().fillRect(x1,y1,(x2-x1),(y2-y1));
                     canvas.getGraphicsContext2D().strokeRect(x1,y1,(x2-x1),(y2-y1));
@@ -126,8 +139,8 @@ public class DrawFromFile {
                     Double x2 = myDoubles.get(2) * canvas.getWidth();
                     Double y2 = myDoubles.get(3) * canvas.getHeight();
 
-                    canvas.getGraphicsContext2D().setFill(Color.valueOf(hex[1]));
-                    canvas.getGraphicsContext2D().setStroke(Color.valueOf(hex[1]));
+
+
 
                     canvas.getGraphicsContext2D().fillOval(x1,y1,x2-x1,y2-y1);
                     canvas.getGraphicsContext2D().strokeOval(x1,y1,x2-x1,y2-y1);
