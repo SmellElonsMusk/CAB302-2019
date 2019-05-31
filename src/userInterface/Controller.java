@@ -15,6 +15,7 @@ package userInterface;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +23,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -85,17 +90,25 @@ public class Controller implements Initializable {
 
         borderPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> {
             canvas.setWidth(newValue.doubleValue()-350);
-            //gc.setFill(Color.RED);
-            //gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
 
         borderPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> {
             canvas.setHeight(newValue.doubleValue()-100);
-            //gc.setFill(Color.GREEN);
-            //gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
 
         ConsoleGUI gui = new ConsoleGUI(console);
+
+        // CTRL + Z Listener for UNDO
+        borderPane.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            final KeyCombination keyComb = new KeyCodeCombination(KeyCode.Z,
+                    KeyCombination.CONTROL_DOWN );
+            public void handle(KeyEvent ke) {
+                if (keyComb.match(ke)) {
+                    Undo();
+                    ke.consume(); // <-- stops passing the event to next node
+                }
+            }
+        });
     }
 
     /**
@@ -139,6 +152,31 @@ public class Controller implements Initializable {
         canvas.setOnMouseDragged(null);
         canvas.setOnMouseReleased(null);
         canvas.setOnMouseClicked(null);
+    }
+
+    /**
+     * UNDO BUTTON - DELETES LAST DRAWING
+     *
+     * @Author Waldo Fouche, n9950095
+     * @Author Kevin Doung, n9934731
+     * TODO: Problem #1: You have to click twice to undo at first? no idea why but must be fixed
+     */
+    public void Undo () {
+        String array[] = console.getText().split("\n");
+        String textToSet = "";
+        int history;
+        for(history = 1; history <array.length; history++) {
+            textToSet += array[history-1] + "\n";
+        }
+
+        if(array[history-1] != null) {
+            canvas.getGraphicsContext2D().clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+
+            for (int i = 0; i < array.length; i++){
+                Draw draw = new Draw(canvas, array[i]);
+                console.setText(textToSet);
+            }
+        }
     }
 
     /**
@@ -288,26 +326,7 @@ public class Controller implements Initializable {
      * @param event
      */
     public void handleUndoButton(ActionEvent event) {
-
-        // TODO: Problem #1: You have to click twice to undo at first? no idea why but must be fixed
-
-        // TODO: Implement CTRL + Z
-
-        String array[] = console.getText().split("\n");
-        String textToSet = "";
-        int history;
-        for(history = 1; history <array.length; history++) {
-            textToSet += array[history-1] + "\n";
-        }
-
-        if(array[history-1] != null) {
-            canvas.getGraphicsContext2D().clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-
-            for (int i = 0; i < array.length; i++){
-                Draw draw = new Draw(canvas, array[i]);
-                console.setText(textToSet);
-            }
-        }
+        Undo();
     }
 
     /**
