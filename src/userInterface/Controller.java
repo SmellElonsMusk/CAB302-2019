@@ -1,3 +1,16 @@
+/**
+ * CAB302 - ALIGNMENT 02 - VEC DRAW
+ * The program allows the user to draw various shapes using tools such as:
+ * LINE, PLOT, RECTANGLE, ELLIPSE, POLYGON.
+ *
+ * Each of the group members have added in a comment and stated their contribution:
+ *
+ * @Author Waldo Fouche, n9950095
+ * @Author Kevin Doung,
+ *
+ */
+
+
 package userInterface;
 
 import javafx.application.Platform;
@@ -28,31 +41,34 @@ import backend.*;
  */
 public class Controller implements Initializable {
 
+    //*********************************************************/
 
-    // JAVAFX ID
+    // JAVAFX ID's
     @FXML private Canvas canvas;
     @FXML private TextArea console; // Console on GUI display
     @FXML private ColorPicker colorpicker; // Colour Palette
 
     @FXML BorderPane borderPane;
 
+    // JAVAFX Button's
     @FXML ToggleButton lineButton;
     @FXML ToggleButton plotButton;
     @FXML ToggleButton rectangleButton;
     @FXML ToggleButton ellipseButton;
     @FXML ToggleButton polygonButton;
     @FXML ToggleButton fillButton;
-
     @FXML Button undoButton;
 
+    // GLOBAL VARIABLES TO STORE COLOUR
     Color fillColour;
     Color strokeColour;
-
-    //private List<Double> coordinates;
 
     // FILE MANAGEMENT
     private File openFile;
     private File currentFile;
+
+
+    //*******************************************************/
 
     /**
      * Initliases the Print stream for the GUi console
@@ -115,6 +131,8 @@ public class Controller implements Initializable {
 
     /**
      * Deactivates the drawing function
+     *
+     * @Author Waldo Fouche
      */
     public void deActivateDrawing() {
         canvas.setOnMousePressed(null);
@@ -124,7 +142,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     *
+     * LINE TOOL FUNCTION
      * @Author Waldo Fouche, n9950095
      */
     @FXML
@@ -142,8 +160,8 @@ public class Controller implements Initializable {
     }
 
     /**
+     * PLOT TOOL FUNCTION
      * @Author Kevin Duong
-     * Plot Button Function
      * @param actionEvent
      */
     @FXML
@@ -186,6 +204,7 @@ public class Controller implements Initializable {
     }
 
     /**
+     *  ELLIPSE TOOL FUNCTION
      * @Author Kevin Duong, n9934731
      * ELLIPSE function.
      */
@@ -200,6 +219,8 @@ public class Controller implements Initializable {
     }
 
     /**
+     * POLYGON FUNCTION
+     *
      * @Author Kevin Duong, n9934731
      * POLYGON function.
      */
@@ -214,8 +235,9 @@ public class Controller implements Initializable {
     }
 
     /**
+     * UPDATES PEN COLOUR
      * @Author Kevin Duong, n9934731
-     * Updates the PEN colour
+     *
      */
     public void handlePenButton(ActionEvent event) {
 
@@ -238,8 +260,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * @Author Kevin Duong, n9934731
      * FILL Button tool that fills colours inside shape functions
+     * @Author Kevin Duong, n9934731
+     *
      */
     //TODO: clicking on fill button and colour to get the output FILL and colour RRGGBB. Disables LINE and PLOT
     public void handleFillButton(ActionEvent event) {
@@ -259,11 +282,11 @@ public class Controller implements Initializable {
     }
 
     /**
-     * @Author Kevin Duong, n9934731
      * Undo Button - removes one step at a time
+     * @Author Kevin Duong, n9934731
+     *
      * @param event
      */
-
     public void handleUndoButton(ActionEvent event) {
 
         // TODO: Problem #1 - if a shape is overlapped and the undo button is pressed, other shapes may get some sections of their shape removed
@@ -335,9 +358,11 @@ public class Controller implements Initializable {
             console.setText(textToSet);
         }
     }
+
     /**
-     * @author Kevin Duong, n9934731
      * clickFileNew - Multi-image support. When creating new image, it loads a new image in a separate window
+     * @author Kevin Duong, n9934731
+     *
      * @param actionEvent
      */
     @FXML
@@ -346,8 +371,9 @@ public class Controller implements Initializable {
     }
 
     /**
+     *  Event handler for click action on the File -> open menu item
      * @author Kevin Duong, n9934731
-     * Event handler for click action on the File -> open menu item
+     *
      * @param actionEvent
      *
      * @Author
@@ -369,8 +395,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * @author Kevin Duong, n9934731 Waldo Fouche, n9950095
      * File is saved, by updating the image code to the .vec file.
+     * @author Kevin Duong, n9934731 Waldo Fouche, n9950095
+     *
      * @param actionEvent
      */
     public void clickFileSave(ActionEvent actionEvent) throws IOException {
@@ -405,9 +432,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * @author Kevin Duong, n9934731
      * Image is saved as a new .vec file with a name and directory location. File contains image code from drawing.
-     *
+     * @author Kevin Duong, n9934731
      * @param actionEvent
      */
     @FXML

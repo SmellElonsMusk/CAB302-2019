@@ -48,7 +48,7 @@ public class DrawFromFile {
                 // TODO: Detect FILL OFF
                 // If FILL is OFF
                 if (str.contains("OFF")) {
-                    hex[1] = "#000000";
+                    //hex[1] = "#000000";
                 }
 
                 // Check for drawing commands

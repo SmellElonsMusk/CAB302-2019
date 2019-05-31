@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 /**
  * POLYGON SHAPE FUNCTIONALITY
  *
- * @author Waldo Fouche, n9950095 (OOP)
+ * @author Waldo Fouche, n9950095 (Function & OOP)
  * @author Kevin Duong, n9934731 (Function)
  *
  **/
