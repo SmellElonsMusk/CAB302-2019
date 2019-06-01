@@ -32,8 +32,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -185,14 +183,16 @@ public class Controller implements Initializable {
      */
     @FXML
     public void handleLineButton(ActionEvent ActionEvent) {
+        HandleButtons buttons = new HandleButtons(lineButton,plotButton,rectangleButton,ellipseButton,polygonButton);
+
         if (lineButton.isSelected()){
-            DisableButtons disable = new DisableButtons(lineButton,plotButton,rectangleButton,ellipseButton,polygonButton);
+            buttons.disable();
             // LINE does not use FILL
             fillButton.setDisable(true);
             DrawLine newLine = new DrawLine(canvas,colorpicker);
         } else {
             deActivateDrawing();
-            ReEnableButtons reEnableButtons = new ReEnableButtons(lineButton,plotButton,rectangleButton,ellipseButton,polygonButton);
+            buttons.enable();
             fillButton.setDisable(false);
         }
     }
@@ -204,14 +204,16 @@ public class Controller implements Initializable {
      */
     @FXML
     public void handlePlotButton(ActionEvent actionEvent) {
+        HandleButtons buttons = new HandleButtons(plotButton,plotButton,rectangleButton,ellipseButton,polygonButton);
+
         if (plotButton.isSelected()){
-            DisableButtons disable = new DisableButtons(plotButton,lineButton,rectangleButton,ellipseButton,polygonButton);
+            buttons.disable();
             // PLOT does not use FILL
             fillButton.setDisable(true);
             DrawPlot newPlot = new DrawPlot(canvas, colorpicker);
         } else {
             deActivateDrawing();
-            ReEnableButtons reEnableButtons = new ReEnableButtons(plotButton,lineButton,rectangleButton,ellipseButton,polygonButton);
+            buttons.enable();
             fillButton.setDisable(false);
         }
     }
@@ -223,21 +225,14 @@ public class Controller implements Initializable {
      * @Author Kevin Duong
      */
     public void handleRectangleButton(ActionEvent actionEvent) {
+        HandleButtons buttons = new HandleButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
+
         if (rectangleButton.isSelected()) {
-            DisableButtons disableButtons = new DisableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
             DrawRectangle newRectangle = new DrawRectangle(canvas,fillButton,colorpicker);
-
-//            undoButton.setOnMouseClicked(e-> {
-//                this.coordinates = newRectangle.returnCoords();
-//                for (int i=0;  i< this.coordinates.size(); i++) {
-//                    System.out.println(this.coordinates.get(i));
-//                }
-//            });
-
-
+            buttons.disable();
         } else {
+            buttons.enable();
             deActivateDrawing();
-            ReEnableButtons reEnableButtons = new ReEnableButtons(rectangleButton,lineButton,plotButton,ellipseButton,polygonButton);
         }
     }
 
@@ -247,12 +242,14 @@ public class Controller implements Initializable {
      * ELLIPSE function.
      */
     public void handleEllipseButton(ActionEvent event) {
+        HandleButtons buttons = new HandleButtons(ellipseButton,lineButton,plotButton,rectangleButton,polygonButton);
+
         if (ellipseButton.isSelected()) {
-            DisableButtons disableButtons = new DisableButtons(ellipseButton,lineButton,plotButton,rectangleButton,polygonButton);
+            buttons.disable();
             DrawEllipse newEllipse = new DrawEllipse(canvas,fillButton,colorpicker);
         } else {
+            buttons.enable();
             deActivateDrawing();
-            ReEnableButtons reEnableButtons = new ReEnableButtons(ellipseButton,lineButton,plotButton,rectangleButton,polygonButton);
         }
     }
 
@@ -263,13 +260,15 @@ public class Controller implements Initializable {
      * POLYGON function.
      */
     public void handlePolygonButton(ActionEvent event) {
+        HandleButtons buttons = new HandleButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);
+
         if (polygonButton.isSelected()){
-            DisableButtons disableButtons = new DisableButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);
+            buttons.disable();
             DrawPolygon newPolygon = new DrawPolygon(canvas,fillButton,colorpicker);
         } else {
+            buttons.enable();
             deActivateDrawing();
-            ReEnableButtons reEnableButtons = new ReEnableButtons(polygonButton,lineButton,rectangleButton,plotButton,ellipseButton);
-        }
+           }
     }
 
     /**
@@ -310,6 +309,7 @@ public class Controller implements Initializable {
             // Disable LINE and PLOT as they're not hollow
             lineButton.setDisable(true);
             plotButton.setDisable(true);
+            //System.out.println("FILL " + fillColour.toString());
 
         } else {
             // Reopen buttons
@@ -374,11 +374,7 @@ public class Controller implements Initializable {
         //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
         StringBuilder sb = new StringBuilder();
         String newContent;
-//        try {
-//            Save newSave = new Save(openFile, console);
-//        } catch (IOException e) {
-//            System.out.println("File Save Error");
-//        }
+
 
         if (openFile == null ) {
             fileChooser fc = new fileChooser();
