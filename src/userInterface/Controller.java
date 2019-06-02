@@ -154,7 +154,6 @@ public class Controller {
         }
 
         console.setText(textToSet);
-
     }
 
     /**

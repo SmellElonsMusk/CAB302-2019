@@ -1,8 +1,3 @@
-# Report Details
-Link to the Report: https://docs.google.com/document/d/1mjcLzm4THLj7-jp01uVueJyira5Uk3VZ_4MNRjH5czQ/edit
-
-
-
 # JavaFX 11.02
 Download Link: https://gluonhq.com/products/javafx/
 
