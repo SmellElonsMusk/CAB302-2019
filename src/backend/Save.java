@@ -1,15 +1,15 @@
 package backend;
 
 import javafx.scene.control.TextArea;
-import backend.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * @Author Waldo Fouche, n9950095
+ * Handles saving options for Save and Save As
  */
+
 public class Save {
     private File file;
     private StringBuilder sb;
@@ -38,13 +38,10 @@ public class Save {
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(sb.toString());
         fileWriter.close();
-
     }
 
     public void As () throws IOException {
-        this.file = file;
         if (file != null) {
-
             // Information from text area
             String fileContent = textArea.getText();
 
@@ -53,7 +50,7 @@ public class Save {
             fileWriter.close();
 
             // Gets only filename
-            String filename = new File(file.toString()).getName();
+            new File(file.toString()).getName();
         }
     }
 }

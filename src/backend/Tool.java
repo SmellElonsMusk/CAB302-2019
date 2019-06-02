@@ -5,8 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ToggleButton;
 
 /**
- * TOOL FUNCTIONALITY
- * @Author Waldo Fouche,
+ * A parent class which handles and pushes variables
  */
 
 public class Tool {
@@ -14,7 +13,7 @@ public class Tool {
     private Canvas canvas;
     private ColorPicker color;
 
-    public Tool (Canvas canvas) {
+    public Tool(Canvas canvas) {
         this.canvas = canvas;
     }
 

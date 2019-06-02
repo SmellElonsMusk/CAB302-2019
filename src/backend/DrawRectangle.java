@@ -5,17 +5,11 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.shape.Rectangle;
 
-import java.util.List;
-
 /**
- * RECTANGLE SHAPE FUNCTIONALITY
- *
- * @author Waldo Fouche, n9950095 (OOP)
- * @author Kevin Duong, n9934731 (Function)
- *
- **/
+ * RECTANGLE Shape Drawing Functionality
+ */
 
-public class DrawRectangle extends Tool{
+public class DrawRectangle extends Tool {
 
     private Rectangle rectangle;
 
@@ -29,15 +23,11 @@ public class DrawRectangle extends Tool{
                 canvas.getGraphicsContext2D().setStroke(colorPicker.getValue());
             }
 
-            if  (fillButton.isSelected()) {
+            if (fillButton.isSelected()) {
                 canvas.getGraphicsContext2D().setFill(colorPicker.getValue());
             }
             rectangle.setX(e.getX());
             rectangle.setY(e.getY());
-        });
-
-        canvas.setOnMouseDragged(e -> {
-            //TODO: Show realtime Rectangle drag when in process of creating Rectangle
         });
 
         canvas.setOnMouseReleased(e -> {
@@ -52,7 +42,7 @@ public class DrawRectangle extends Tool{
                 rectangle.setY(e.getY());
             }
 
-            if (fillButton.isSelected()){
+            if (fillButton.isSelected()) {
                 canvas.getGraphicsContext2D().fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight()); // Creates filled in shape
                 canvas.getGraphicsContext2D().strokeRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight()); // Creates outline of shape
             } else {
@@ -60,30 +50,10 @@ public class DrawRectangle extends Tool{
             }
 
             // Square Ratio 1:1
-            String startX = String.format("%.6f", rectangle.getX()/canvas.getWidth());
-            String startY = String.format("%.6f", rectangle.getY()/canvas.getWidth());
-            String endX = String.format("%.6f", (rectangle.getWidth()+rectangle.getX())/canvas.getWidth());
-            String endY = String.format("%.6f",(rectangle.getHeight()+rectangle.getY())/canvas.getWidth());
-
-            // If END of width (X1) reaches beyond left border
-            if (rectangle.getX()/canvas.getWidth() < 0) {
-                startX = "0.0";
-            }
-
-            // If END of width (X2) reaches beyond right border
-            if ((rectangle.getWidth()+rectangle.getX())/canvas.getWidth() > 1) {
-                endX = "1.0";
-            }
-
-            // IF Y1 reaches above the top border
-            if (rectangle.getY()/canvas.getWidth() < 0) {
-                startY = "0.0";
-            }
-
-            // IF Y2 reaches below the bottom border
-            if ((rectangle.getHeight()+rectangle.getY())/canvas.getWidth() > 1) {
-                endY = "1.0";
-            }
+            String startX = String.format("%.6f", rectangle.getX() / canvas.getWidth());
+            String startY = String.format("%.6f", rectangle.getY() / canvas.getWidth());
+            String endX = String.format("%.6f", (rectangle.getWidth() + rectangle.getX()) / canvas.getWidth());
+            String endY = String.format("%.6f", (rectangle.getHeight() + rectangle.getY()) / canvas.getWidth());
 
             // Output RECTANGLE coordinates: X1,Y1,X2,Y2
             System.out.println("RECTANGLE " + startX + " " + startY + " " + endX + " " + endY);

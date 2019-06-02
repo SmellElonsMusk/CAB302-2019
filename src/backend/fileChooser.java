@@ -1,19 +1,15 @@
 package backend;
 
 import javafx.stage.FileChooser;
-
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Custom File chooser command. Loads up the file chooser and can
  * set it to save or open dynamically
- *
- * @Author Waldo Fouche, n9950095
- * @Date:
  */
+
 public class fileChooser {
-    public FileChooser chooser;
+    private FileChooser chooser;
     private File file;
     private String path;
 
@@ -25,11 +21,10 @@ public class fileChooser {
         );
     }
 
-
     /**
      * Sets the file chooser to open
      */
-    public void Open(){
+    public void Open() {
         this.file = chooser.showOpenDialog(null);
         this.path = file.getAbsolutePath();
 
@@ -52,7 +47,7 @@ public class fileChooser {
      * Returns the file opened
      * @return
      */
-    public File getFile () {
+    public File getFile() {
         return file;
     }
 
@@ -60,7 +55,7 @@ public class fileChooser {
      * Returns the file path
      * @return
      */
-    public String getPath () {
+    public String getPath() {
         return path;
     }
 
@@ -68,8 +63,7 @@ public class fileChooser {
      * Returns the filename
      * @return
      */
-    public String getFileName () {
+    public String getFileName() {
         return file.getName();
     }
-
 }

@@ -6,11 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- *
+ * Scans and loads the .VEC file commands into GUI
  */
+
 public class fileReader {
     private File file;
-    public fileReader (File file) {
+    public fileReader(File file) {
 
         this.file = file;
 
