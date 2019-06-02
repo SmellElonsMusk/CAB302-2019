@@ -139,6 +139,7 @@ public class Controller {
      * Undo function - deletes last drawing
      */
     public void Undo() {
+
         String array[] = console.getText().split("\n");
         String textToSet = "";
         int history;
@@ -146,14 +147,14 @@ public class Controller {
             textToSet += array[history - 1] + "\n";
         }
 
-        if (array[history - 1] != null) {
-            canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-            for (int i = 0; i < array.length; i++) {
-                new Draw(canvas, array[i]);
-                console.setText(textToSet);
-            }
+        for (int i = 1; i < array.length; i++) {
+            new Draw(canvas, array[i]);
         }
+
+        console.setText(textToSet);
+
     }
 
     /**
@@ -311,7 +312,7 @@ public class Controller {
             newWindow(filename); // TODO: Fix drawing open in new window not on previous
             new fileReader(fc.getFile());
 
-            //TODO: Attempting to load image based on code
+            //Load image based on code
             new DrawFromFile(canvas, fc.getFile());
         }
     }
@@ -321,7 +322,6 @@ public class Controller {
      * @param actionEvent
      */
     public void clickFileSave(ActionEvent actionEvent) throws IOException {
-        //TODO: Need to find a way to grab an existing file's name so I can get its directory path and save it there. Also make it a save as when it is a new file
         StringBuilder sb = new StringBuilder();
         String newContent;
 

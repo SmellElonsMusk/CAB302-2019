@@ -29,7 +29,7 @@ public class fileChooser {
         this.path = file.getAbsolutePath();
 
         //TEST;
-        System.out.println("Location of file opened: " + path);
+        //System.out.println("Location of file opened: " + path);
     }
 
     /**
@@ -40,7 +40,7 @@ public class fileChooser {
         this.path = file.getAbsolutePath();
 
         //TEST;
-        System.out.println("Location of file opened: " + path);
+        //System.out.println("Location of file saved: " + path);
     }
 
     /**

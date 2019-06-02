@@ -51,9 +51,9 @@ public class DrawRectangle extends Tool {
 
             // Square Ratio 1:1
             String startX = String.format("%.6f", rectangle.getX() / canvas.getWidth());
-            String startY = String.format("%.6f", rectangle.getY() / canvas.getWidth());
+            String startY = String.format("%.6f", rectangle.getY() / canvas.getHeight());
             String endX = String.format("%.6f", (rectangle.getWidth() + rectangle.getX()) / canvas.getWidth());
-            String endY = String.format("%.6f", (rectangle.getHeight() + rectangle.getY()) / canvas.getWidth());
+            String endY = String.format("%.6f", (rectangle.getHeight() + rectangle.getY()) / canvas.getHeight());
 
             // Output RECTANGLE coordinates: X1,Y1,X2,Y2
             System.out.println("RECTANGLE " + startX + " " + startY + " " + endX + " " + endY);
